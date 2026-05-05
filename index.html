@@ -1,103 +1,318 @@
-<!-- ================= AI CHAT + BANNER ADD-ON ================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyGuide AI</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
+
+header{
+  background:#111;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.lang-btn{
+  padding:6px 10px;
+  font-size:12px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+}
+
+/* BANNER */
+.banner{
+  height:55vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  background-size:cover;
+  transition:1s;
+}
+
+/* SEARCH */
+.search{
+  background:white;
+  margin:-40px auto 30px;
+  padding:20px;
+  width:90%;
+  max-width:900px;
+  border-radius:10px;
+}
+
+input,button{
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+}
+
+/* CARDS */
+.cards{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+}
+
+.card{
+  width:250px;
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+  text-align:center;
+  cursor:pointer;
+}
+
+.card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
+
+.price{ color:#d81e05; font-weight:bold; }
+
+.book-btn{
+  background:#d81e05;
+  color:white;
+  border:none;
+  padding:8px;
+  width:90%;
+  margin:8px auto;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  max-width:400px;
+  text-align:center;
+}
+
+/* TEAM */
+.team{
+  text-align:center;
+  padding:50px 20px;
+  background:#f8f9fa;
+}
+
+.team img{
+  max-width:650px;
+  border-radius:15px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+/* CHAT */
+.chat{
+  position:fixed;
+  bottom:15px;
+  right:15px;
+  width:260px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+  overflow:hidden;
+}
+
+.chat-body{
+  height:200px;
+  overflow:auto;
+  padding:10px;
+  background:#eee;
+}
+
+.msg{padding:8px;margin:5px;border-radius:10px}
+.user{background:#004aad;color:white;text-align:right}
+.ai{background:#ddd}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>✈️ SkyGuide AI</h2>
+  <button class="lang-btn" onclick="switchLang()">🌐 AR / EN</button>
+</header>
 
 <!-- BANNER -->
-<div id="banner" style="
-height:50vh;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-background:url('https://source.unsplash.com/1600x900/?airport') center/cover;
-background-size:cover;
-transition:1s;
-">
+<div class="banner" id="banner">
   <div>
-    <h1>SkyGuide AI</h1>
-    <p>Smart Travel Assistant</p>
+    <h1>Travel Smarter with AI</h1>
+    <p>Book Flights Instantly</p>
   </div>
 </div>
 
-<!-- AI CHAT BOX -->
-<div style="
-position:fixed;
-bottom:15px;
-right:15px;
-width:280px;
-background:white;
-border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
-overflow:hidden;
-font-family:Arial;
-">
+<!-- SEARCH -->
+<div class="search">
+  <input placeholder="From (Abu Dhabi)">
+  <input placeholder="To (Destination)">
+  <button>Search Flights</button>
+</div>
 
+<!-- DESTINATIONS -->
+<section style="text-align:center;padding:40px;">
+<h2>Popular Destinations</h2>
+
+<div class="cards">
+
+  <div class="card" onclick="showInfo('london')">
+    <img src="lon1.avif">
+    <p>London</p>
+    <button class="book-btn" onclick="book('London')">Book Now</button>
+  </div>
+
+  <div class="card" onclick="showInfo('paris')">
+    <img src="paris1.jpg">
+    <p>Paris</p>
+    <button class="book-btn" onclick="book('Paris')">Book Now</button>
+  </div>
+
+  <div class="card" onclick="showInfo('bangkok')">
+    <img src="thai.jpg">
+    <p>Bangkok</p>
+    <button class="book-btn" onclick="book('Bangkok')">Book Now</button>
+  </div>
+
+  <div class="card" onclick="showInfo('dubai')">
+    <img src="dub1.jpg">
+    <p>Dubai</p>
+    <button class="book-btn" onclick="book('Dubai')">Book Now</button>
+  </div>
+
+  <div class="card" onclick="showInfo('newyork')">
+    <img src="new1.jpg">
+    <p>New York</p>
+    <button class="book-btn" onclick="book('New York')">Book Now</button>
+  </div>
+
+  <div class="card" onclick="showInfo('istanbul')">
+    <img src="ist1.jpg">
+    <p>Istanbul</p>
+    <button class="book-btn" onclick="book('Istanbul')">Book Now</button>
+  </div>
+
+</div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <h2>Our Team</h2>
+  <p>Grade 11 AI Project Group</p>
+
+  <img src="ourteam.png">
+
+  <p style="margin-top:15px;font-weight:bold;">
+    Mahra Alzaabi, Sarah Hussein, Sarah Alnuaimi, Fatema Mohamed, Shamma Hamad
+  </p>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2 id="title"></h2>
+    <p id="info"></p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<!-- AI CHAT -->
+<div class="chat">
   <div style="background:#002d62;color:white;padding:10px;text-align:center;">
     AI Assistant
   </div>
-
-  <div id="chatBox" style="height:200px;overflow:auto;padding:10px;background:#f2f2f2;">
-    <div style="margin:5px;background:#ddd;padding:8px;border-radius:10px;">
-      Hello! Ask me about flights ✈️
-    </div>
-  </div>
-
-  <input id="userInput" placeholder="Type message..."
-  style="width:100%;padding:10px;border:none;"
-  onkeypress="if(event.key==='Enter')sendAI()">
+  <div class="chat-body" id="chat"></div>
+  <input id="input" placeholder="Ask AI..." style="width:100%;padding:10px;border:none" onkeypress="enter(event)">
 </div>
 
 <script>
 
-/* ================= BANNER SLIDER ================= */
-let banners = [
+/* BANNER */
+let banners=[
  "url('https://source.unsplash.com/1600x900/?airplane')",
  "url('https://source.unsplash.com/1600x900/?dubai,skyline')",
- "url('https://source.unsplash.com/1600x900/?airport,travel')"
+ "url('https://source.unsplash.com/1600x900/?airport')"
 ];
 
-let i = 0;
-
+let i=0;
 setInterval(()=>{
-  document.getElementById("banner").style.backgroundImage = banners[i];
-  i = (i + 1) % banners.length;
-}, 4000);
+  document.getElementById("banner").style.backgroundImage=banners[i];
+  i=(i+1)%banners.length;
+},4000);
 
-/* ================= AI CHAT ================= */
-function sendAI(){
-  let input = document.getElementById("userInput");
-  let text = input.value.toLowerCase();
+/* MODAL */
+function showInfo(city){
+  let data={
+    london:"7h 30m • AED 2850",
+    paris:"7h 10m • AED 3150",
+    bangkok:"6h 45m • AED 2450",
+    dubai:"1h • AED 500",
+    newyork:"14h • AED 4200",
+    istanbul:"5h • AED 1800"
+  };
 
-  if(!text) return;
+  document.getElementById("title").innerText=city.toUpperCase();
+  document.getElementById("info").innerText=data[city];
+  document.getElementById("modal").style.display="flex";
+}
 
-  let chat = document.getElementById("chatBox");
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
 
-  chat.innerHTML += `<div style="background:#004aad;color:white;padding:8px;margin:5px;border-radius:10px;text-align:right;">
-    ${input.value}
-  </div>`;
+/* BOOKING */
+function book(city){
+  alert("🎟 Booking confirmed for " + city);
+}
 
-  let reply = "I can help you find flights ✈️";
+/* AI CHAT */
+function enter(e){
+  if(e.key==="Enter"){
+    let text=document.getElementById("input").value;
+    let chat=document.getElementById("chat");
 
-  if(text.includes("london"))
-    reply = "London flight: AED 2850 | 7h 30m direct";
+    chat.innerHTML+=`<div class='msg user'>${text}</div>`;
 
-  else if(text.includes("paris"))
-    reply = "Paris flight: AED 3150 | 7h 10m direct";
+    let reply="I can help you find flights ✈️";
 
-  else if(text.includes("dubai"))
-    reply = "Dubai flight: AED 500 | 1h only";
+    if(text.toLowerCase().includes("london"))
+      reply="London: AED 2850 | 7h 30m";
 
-  else if(text.includes("price"))
-    reply = "Prices start from AED 500 depending on destination";
+    else if(text.toLowerCase().includes("dubai"))
+      reply="Dubai: AED 500 | 1h flight";
 
-  else if(text.includes("hello") || text.includes("hi"))
-    reply = "Hello 👋 I can help you book flights anywhere!";
+    else if(text.toLowerCase().includes("price"))
+      reply="Prices start from AED 500";
 
-  chat.innerHTML += `<div style="background:#ddd;padding:8px;margin:5px;border-radius:10px;">
-    ${reply}
-  </div>`;
+    chat.innerHTML+=`<div class='msg ai'>${reply}</div>`;
+    document.getElementById("input").value="";
+  }
+}
 
-  chat.scrollTop = chat.scrollHeight;
-  input.value = "";
+/* LANGUAGE */
+function switchLang(){
+  alert("🌐 Language system ready");
 }
 
 </script>
+
+</body>
+</html>
