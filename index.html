@@ -19,10 +19,8 @@
       justify-content: space-between;
       align-items: center;
     }
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-    }
+    .logo { font-size: 28px; font-weight: bold; }
+    
     .chat-container {
       max-width: 900px;
       margin: 40px auto;
@@ -50,17 +48,9 @@
       border-radius: 18px;
       max-width: 80%;
     }
-    .user {
-      background: #1e90ff;
-      color: white;
-      margin-left: auto;
-      border-bottom-right-radius: 5px;
-    }
-    .ai {
-      background: #e9ecef;
-      margin-right: auto;
-      border-bottom-left-radius: 5px;
-    }
+    .user { background: #1e90ff; color: white; margin-left: auto; border-bottom-right-radius: 5px; }
+    .ai { background: #e9ecef; margin-right: auto; border-bottom-left-radius: 5px; }
+
     .input-area {
       padding: 20px;
       background: white;
@@ -93,42 +83,74 @@
       border: 1px solid #ddd;
       text-align: left;
     }
-    th {
-      background: #0a3d62;
-      color: white;
-    }
+    th { background: #0a3d62; color: white; }
   </style>
 </head>
 <body>
 
   <header>
     <div class="logo">✈️ SkyGuide AI</div>
-    <div>
-      <button onclick="switchLanguage()">AR / EN</button>
-    </div>
+    <button onclick="switchLanguage()" style="padding:8px 16px; font-size:16px;">
+      🇦🇪 AR / EN
+    </button>
   </header>
 
   <div class="chat-container">
-    <div class="chat-header">
-      <h2>AI Travel Assistant</h2>
-      <p>Your smart airline booking helper from Abu Dhabi</p>
+    <div class="chat-header" id="chatHeader">
+      <h2 id="title">AI Travel Assistant</h2>
+      <p id="subtitle">Your smart airline booking helper from Abu Dhabi</p>
     </div>
     
     <div class="chat-body" id="chatBody">
-      <div class="message ai">
-        Hello! I'm SkyGuide AI 🌟<br>
-        How can I help you with your trip today?<br>
-        Example: "Find cheap flights from Abu Dhabi to London next month"
-      </div>
+      <!-- Messages will be added here by JavaScript -->
     </div>
 
     <div class="input-area">
-      <input type="text" id="userInput" placeholder="Type your travel request here..." onkeypress="handleKey(event)">
+      <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKey(event)">
       <button onclick="sendMessage()">Send</button>
     </div>
   </div>
 
   <script>
+    let currentLang = 'en';
+
+    const translations = {
+      en: {
+        title: "AI Travel Assistant",
+        subtitle: "Your smart airline booking helper from Abu Dhabi",
+        welcome: "Hello! I'm SkyGuide AI 🌟<br>How can I help you with your trip today?<br>Example: Find cheap flights from Abu Dhabi to London next month",
+        placeholder: "Type your travel request here...",
+        send: "Send"
+      },
+      ar: {
+        title: "مساعد السفر الذكي",
+        subtitle: "مساعد حجز الطيران الذكي من أبوظبي",
+        welcome: "مرحبا! أنا سكاي جايد AI 🌟<br>كيف يمكنني مساعدتك في رحلتك اليوم؟<br>مثال: ابحث عن رحلات رخيصة من أبوظبي إلى لندن الشهر القادم",
+        placeholder: "اكتب طلب سفرك هنا...",
+        send: "إرسال"
+      }
+    };
+
+    function updateLanguage() {
+      const t = translations[currentLang];
+      
+      document.getElementById('title').textContent = t.title;
+      document.getElementById('subtitle').textContent = t.subtitle;
+      document.getElementById('userInput').placeholder = t.placeholder;
+    }
+
+    function switchLanguage() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      updateLanguage();
+      
+      // Clear chat and show new welcome message
+      document.getElementById('chatBody').innerHTML = `
+        <div class="message ai" style="direction: ${currentLang === 'ar' ? 'rtl' : 'ltr'}">
+          ${translations[currentLang].welcome}
+        </div>
+      `;
+    }
+
     function sendMessage() {
       const input = document.getElementById("userInput");
       const message = input.value.trim();
@@ -138,22 +160,32 @@
 
       // User message
       chatBody.innerHTML += `
-        <div class="message user">${message}</div>
+        <div class="message user" style="direction: ${currentLang === 'ar' ? 'rtl' : 'ltr'}">
+          ${message}
+        </div>
       `;
 
-      // Simulate AI response
+      // AI Response with example prices
       setTimeout(() => {
         let reply = `
-          <div class="message ai">
-            Here are the best options for you:<br><br>
+          <div class="message ai" style="direction: ${currentLang === 'ar' ? 'rtl' : 'ltr'}">
+            ${currentLang === 'ar' ? 
+              'إليك أفضل الخيارات لك:' : 
+              'Here are the best options for you:'}
+            <br><br>
             <table>
-              <tr><th>Flight</th><th>Departure</th><th>Price (AED)</th><th>Duration</th></tr>
+              <tr><th>${currentLang === 'ar' ? 'الرحلة' : 'Flight'}</th>
+                  <th>${currentLang === 'ar' ? 'الإقلاع' : 'Departure'}</th>
+                  <th>${currentLang === 'ar' ? 'السعر (درهم)' : 'Price (AED)'}</th>
+                  <th>${currentLang === 'ar' ? 'المدة' : 'Duration'}</th></tr>
               <tr><td>Etihad EY-11</td><td>10:00 AM</td><td>2,450</td><td>7h 30m</td></tr>
               <tr><td>Emirates EK-123</td><td>02:15 PM</td><td>2,780</td><td>7h 45m</td></tr>
+              <tr><td>FlyDubai FZ-301</td><td>08:45 PM</td><td>1,980</td><td>8h 10m</td></tr>
             </table>
             <br>
-            💡 Tip: Book soon for better prices!<br>
-            ⚠️ Please check real prices on <b>etihad.com</b> or <b>emirates.com</b>
+            💡 ${currentLang === 'ar' ? 'نصيحة: احجز مبكراً للحصول على أسعار أفضل!' : 'Tip: Book early for better prices!'}<br>
+            ⚠️ ${currentLang === 'ar' ? 'يرجى التحقق من الأسعار الحقيقية على' : 'Please check real prices on'} 
+            <b>etihad.com</b> ${currentLang === 'ar' ? 'أو' : 'or'} <b>emirates.com</b>
           </div>
         `;
         chatBody.innerHTML += reply;
@@ -167,9 +199,14 @@
       if (e.key === "Enter") sendMessage();
     }
 
-    function switchLanguage() {
-      alert("Language switched to Arabic 🇦🇪 (RTL support coming in full version)");
-    }
+    // Initialize
+    window.onload = () => {
+      document.getElementById('chatBody').innerHTML = `
+        <div class="message ai">
+          ${translations.en.welcome}
+        </div>
+      `;
+    };
   </script>
 
 </body>
