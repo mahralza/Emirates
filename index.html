@@ -22,28 +22,22 @@ header{
   font-size:11px;
   padding:5px 10px;
   border-radius:10px;
-  border:none;
 }
 
-/* PAGES */
-.page{display:none;padding:40px}
-.active{display:block}
-
-/* HERO */
-.hero{
-  height:60vh;
-  background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-  url('https://source.unsplash.com/1600x900/?airplane') center/cover;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+/* BANNER */
+.banner{
+  height:55vh;
   color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
+  background-size:cover;
+  transition:1s;
 }
 
 /* CARDS */
 .cards{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
-
 .card{
   width:240px;
   background:white;
@@ -52,12 +46,7 @@ header{
   cursor:pointer;
   text-align:center;
 }
-
-.card img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-}
+.card img{width:100%;height:150px;object-fit:cover}
 
 /* BUTTON */
 .btn{
@@ -70,21 +59,31 @@ header{
   border-radius:8px;
 }
 
-/* TEAM */
-.team img{
-  width:70%;
-  border-radius:15px;
+/* AI CHAT */
+.chat{
+  position:fixed;
+  bottom:10px;
+  right:10px;
+  width:280px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* BOOK PAGE */
-.box{
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  max-width:500px;
-  margin:auto;
-  text-align:center;
+.chat-body{
+  height:200px;
+  overflow:auto;
+  padding:10px;
+  background:#eee;
 }
+
+.msg{padding:8px;margin:5px;border-radius:10px}
+.user{background:#004aad;color:white;margin-left:auto}
+.ai{background:#ddd}
+
+/* PAGES */
+.page{display:none;padding:30px}
+.active{display:block}
 </style>
 </head>
 
@@ -92,151 +91,158 @@ header{
 
 <header>
   <div>✈️ SkyGuide AI</div>
-  <button class="lang-btn" onclick="langSwitch()">AR / EN</button>
+  <button class="lang-btn" onclick="lang()">AR / EN</button>
 </header>
 
-<!-- HOME PAGE -->
-<div id="home" class="page active">
-
-<section class="hero">
+<!-- BANNER SLIDER -->
+<div class="banner" id="banner">
   <div>
     <h1>Travel Smarter with AI</h1>
-    <p>AI Airline Booking Assistant</p>
-    <button class="btn" onclick="scrollToDest()">Start</button>
+    <p>Book Flights Instantly</p>
   </div>
-</section>
+</div>
 
-<!-- ABOUT (YOUR TEXT) -->
-<section>
-<h2>What is our project about?</h2>
-<p>
-SkyGuide AI is an AI-Powered Airline Booking & Travel Assistant.
-<br><br>
-<b>Main Purpose:</b><br>
-It helps people (especially travelers from Abu Dhabi/UAE) plan their flights and trips more easily and quickly using Artificial Intelligence.
-<br><br>
-<b>How it helps:</b><br>
-• Chat in natural language<br>
-• Suggests flights automatically<br>
-• Shows prices & times<br>
-• Works in Arabic & English<br>
-• Encourages booking via official airlines (Etihad / Emirates)
-</p>
-</section>
+<!-- HOME -->
+<div id="home" class="page active">
 
-<!-- DESTINATIONS -->
-<section style="text-align:center">
-<h2>Destinations</h2>
+<h2 style="text-align:center;margin:20px;">Destinations</h2>
 
 <div class="cards">
 
-  <div class="card" onclick="openCity('london')">
-    <img src="lon1.avif">
-    <p>London</p>
+  <div class="card" onclick="city('london')">
+    <img src="lon1.avif"><p>London</p>
   </div>
 
-  <div class="card" onclick="openCity('paris')">
-    <img src="paris1.jpg">
-    <p>Paris</p>
+  <div class="card" onclick="city('paris')">
+    <img src="paris1.jpg"><p>Paris</p>
   </div>
 
-  <div class="card" onclick="openCity('bangkok')">
-    <img src="thai.jpg">
-    <p>Bangkok</p>
+  <div class="card" onclick="city('bangkok')">
+    <img src="thai.jpg"><p>Bangkok</p>
   </div>
 
-  <div class="card" onclick="openCity('dubai')">
-    <img src="dub1.jpg">
-    <p>Dubai</p>
+  <div class="card" onclick="city('dubai')">
+    <img src="dub1.jpg"><p>Dubai</p>
   </div>
 
-  <div class="card" onclick="openCity('newyork')">
-    <img src="new1.jpg">
-    <p>New York</p>
+  <div class="card" onclick="city('newyork')">
+    <img src="new1.jpg"><p>New York</p>
   </div>
 
-  <div class="card" onclick="openCity('istanbul')">
-    <img src="ist1.jpg">
-    <p>Istanbul</p>
+  <div class="card" onclick="city('istanbul')">
+    <img src="ist1.jpg"><p>Istanbul</p>
   </div>
 
 </div>
-</section>
-
 </div>
 
-<!-- CITY PAGE -->
-<div id="cityPage" class="page">
-  <h2 id="cityName"></h2>
-  <p id="cityInfo"></p>
-  <button class="btn" onclick="goBook()">Book Now</button>
-  <button class="btn" onclick="goHome()">Back</button>
+<!-- CITY -->
+<div id="city" class="page">
+  <h2 id="cname"></h2>
+  <p id="cinfo"></p>
+  <button class="btn" onclick="book()">Book Now</button>
+  <button class="btn" onclick="home()">Back</button>
 </div>
 
-<!-- BOOKING PAGE -->
-<div id="bookPage" class="page">
-  <div class="box">
-    <h2>Booking Confirmed 🎟</h2>
-    <p id="bookText"></p>
-    <button class="btn" onclick="goHome()">Return Home</button>
-  </div>
+<!-- BOOK -->
+<div id="book" class="page">
+  <h2 style="text-align:center">Booking Confirmed 🎟</h2>
+  <p id="btxt" style="text-align:center"></p>
+  <button class="btn" onclick="home()">Home</button>
 </div>
 
 <!-- TEAM -->
-<section class="team" style="text-align:center">
+<section style="text-align:center;padding:40px">
 <h2>Our Team</h2>
 <p>Grade 11 AI Project Group</p>
-
-<img src="ourteam.png">
-
+<img src="ourteam.png" style="width:60%;border-radius:10px">
 <p style="margin-top:15px">
 Mahra Alzaabi, Sarah Hussein, Sarah Alnuaimi, Fatema Mohamed, Shamma Hamad
 </p>
 </section>
 
+<!-- AI CHAT -->
+<div class="chat">
+  <div style="background:#002d62;color:white;padding:10px">AI Assistant</div>
+  <div class="chat-body" id="chat"></div>
+  <input id="input" placeholder="Ask AI..." style="width:100%;padding:10px;border:none" onkeypress="enter(event)">
+</div>
+
 <script>
 
-let currentCity="";
+/* BANNER SLIDER */
+let banners=[
+ "url('https://source.unsplash.com/1600x900/?airplane,travel')",
+ "url('https://source.unsplash.com/1600x900/?dubai,skyline')",
+ "url('https://source.unsplash.com/1600x900/?airport')"
+];
+let i=0;
+setInterval(()=>{
+ document.getElementById("banner").style.backgroundImage=banners[i];
+ i=(i+1)%banners.length;
+},3000);
 
-function show(page){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(page).classList.add("active");
+/* NAV */
+function show(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
 }
 
-function openCity(city){
-  currentCity=city;
+function home(){show("home")}
 
-  let data={
-    london:"7h 30m • AED 2850",
-    paris:"7h 10m • AED 3150",
-    bangkok:"6h 45m • AED 2450",
-    dubai:"1h • AED 500",
-    newyork:"14h • AED 4200",
-    istanbul:"5h • AED 1800"
-  };
+/* CITY */
+let current="";
+function city(c){
+ current=c;
 
-  document.getElementById("cityName").innerText=city.toUpperCase();
-  document.getElementById("cityInfo").innerText=data[city];
+ let data={
+  london:"7h 30m • AED 2850",
+  paris:"7h 10m • AED 3150",
+  bangkok:"6h 45m • AED 2450",
+  dubai:"1h • AED 500",
+  newyork:"14h • AED 4200",
+  istanbul:"5h • AED 1800"
+ };
 
-  show("cityPage");
+ document.getElementById("cname").innerText=c.toUpperCase();
+ document.getElementById("cinfo").innerText=data[c];
+ show("city");
 }
 
-function goBook(){
-  document.getElementById("bookText").innerText=
-  "Your trip to " + currentCity + " is reserved (Demo System).";
-  show("bookPage");
+function book(){
+ document.getElementById("btxt").innerText=
+ "Your trip to " + current + " is confirmed (Demo AI System)";
+ show("book");
 }
 
-function goHome(){
-  show("home");
+/* AI CHAT (SMART RESPONSES) */
+function enter(e){
+ if(e.key==="Enter"){
+  let t=document.getElementById("input").value;
+  let chat=document.getElementById("chat");
+
+  chat.innerHTML+=`<div class='msg user'>${t}</div>`;
+
+  let reply="I can help you find flights ✈️";
+
+  if(t.toLowerCase().includes("london"))
+   reply="London: AED 2850 | 7h 30m direct flight";
+
+  else if(t.toLowerCase().includes("dubai"))
+   reply="Dubai: AED 500 | 1h flight";
+
+  else if(t.toLowerCase().includes("price"))
+   reply="Prices start from AED 500 depending on destination";
+
+  chat.innerHTML+=`<div class='msg ai'>${reply}</div>`;
+
+  document.getElementById("input").value="";
+ }
 }
 
-function langSwitch(){
-  alert("🌐 Language switch ready (EN / AR)");
-}
-
-function scrollToDest(){
-  window.scrollTo({top:600,behavior:"smooth"});
+/* LANGUAGE */
+function lang(){
+ alert("🌐 Arabic / English system ready (can be expanded)");
 }
 
 </script>
