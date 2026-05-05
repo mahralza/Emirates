@@ -8,7 +8,6 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', Arial, sans-serif; }
 
-    /* Header */
     header {
       background: #1e1e1e;
       color: white;
@@ -20,105 +19,35 @@
       top: 0;
       z-index: 100;
     }
-    .logo { font-size: 26px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 18px;
-      font-weight: 500;
-    }
-    .lang-btn {
-      background: white;
-      color: #002d62;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+    .logo { font-size: 26px; font-weight: bold; }
+    nav a { color: white; text-decoration: none; margin: 0 18px; font-weight: 500; }
 
-    /* Hero Banner */
     .hero {
-      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://source.unsplash.com/random/1600x900/?airplane,cabin') center/cover no-repeat;
-      height: 85vh;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/random/1600x900/?airplane') center/cover;
+      height: 80vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: white;
-      position: relative;
     }
-    .hero-content h1 {
-      font-size: 52px;
-      margin-bottom: 15px;
-    }
-    .hero-content p {
-      font-size: 24px;
-      margin-bottom: 30px;
-    }
+    .hero h1 { font-size: 48px; margin-bottom: 10px; }
+    .hero p { font-size: 22px; }
 
-    /* Search Bar */
     .search-bar {
       background: white;
       color: black;
       max-width: 1100px;
-      margin: -60px auto 40px;
+      margin: -70px auto 40px;
       border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       padding: 25px;
     }
-    .search-tabs {
-      display: flex;
-      gap: 30px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #ddd;
-    }
-    .tab { padding: 10px 0; cursor: pointer; font-weight: bold; }
-    .tab.active { color: #d81e05; border-bottom: 3px solid #d81e05; }
 
-    .form-row {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    input {
-      flex: 1;
-      padding: 14px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      min-width: 220px;
-    }
-    button {
-      background: #d81e05;
-      color: white;
-      border: none;
-      padding: 14px 40px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    /* Services */
-    .services {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      flex-wrap: wrap;
-      padding: 40px 20px;
-      background: #f8f9fa;
-    }
-    .service {
-      text-align: center;
-      width: 120px;
-    }
-    .service img { width: 50px; height: 50px; }
-
-    /* Featured Destinations */
-    .destinations {
+    .services, .destinations, .deals {
       padding: 60px 40px;
       text-align: center;
     }
-    .destinations h2 { margin-bottom: 40px; font-size: 32px; }
     .cards {
       display: flex;
       justify-content: center;
@@ -126,21 +55,38 @@
       flex-wrap: wrap;
     }
     .card {
-      width: 320px;
+      width: 300px;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
+    .card img { width: 100%; height: 180px; object-fit: cover; }
+
+    /* AI Chat */
+    .chat-box {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 380px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      overflow: hidden;
+      z-index: 1000;
     }
-    .card-content {
-      padding: 15px;
-      text-align: left;
+    .chat-header { background: #002d62; color: white; padding: 12px; text-align: center; }
+    .chat-body { height: 320px; overflow-y: auto; padding: 15px; background: #f8f9fa; }
+    .message { margin: 10px 0; padding: 12px; border-radius: 15px; }
+    .ai { background: #e9ecef; }
+    .user { background: #002d62; color: white; margin-left: auto; text-align: right; }
+
+    footer {
+      background: #1e1e1e;
+      color: white;
+      text-align: center;
+      padding: 40px;
+      margin-top: 50px;
     }
-    .price { color: #d81e05; font-weight: bold; font-size: 18px; }
   </style>
 </head>
 <body>
@@ -150,89 +96,90 @@
     <div class="logo">✈️ SkyGuide AI</div>
     <nav>
       <a href="#">Book</a>
-      <a href="#">Manage</a>
       <a href="#">Destinations</a>
+      <a href="#">Deals</a>
       <a href="#">Help</a>
     </nav>
-    <button onclick="switchLanguage()" class="lang-btn">🇦🇪 AR / EN</button>
+    <button onclick="switchLanguage()" style="padding:8px 16px; border-radius:20px;">🇦🇪 AR / EN</button>
   </header>
 
-  <!-- Hero Banner -->
+  <!-- Hero -->
   <section class="hero">
-    <div class="hero-content">
-      <h1 id="hero-title">Enjoy flexible travel with AI</h1>
-      <p id="hero-subtitle">Smart flight suggestions • Personalized plans • From Abu Dhabi</p>
-      <button onclick="document.getElementById('search-bar').scrollIntoView({behavior:'smooth'})" style="padding:16px 50px; font-size:18px;">
-        Start Your Journey
-      </button>
+    <div>
+      <h1 id="hero-title">Travel Smarter with AI</h1>
+      <p id="hero-subtitle">Instant flight suggestions • Personalized itineraries • From Abu Dhabi</p>
     </div>
   </section>
 
   <!-- Search Bar -->
-  <div class="search-bar" id="search-bar">
-    <div class="search-tabs">
-      <div class="tab active">Flight</div>
-      <div class="tab">Flight + Hotel</div>
-    </div>
-    <div class="form-row">
-      <input type="text" value="Abu Dhabi (AUH)" placeholder="Departure airport">
-      <input type="text" placeholder="Arrival airport">
-      <input type="date">
-      <button onclick="alert('Searching best flights... (Demo)')">Search Flights</button>
-    </div>
+  <div class="search-bar">
+    <input type="text" placeholder="Where are you flying from? (e.g. Abu Dhabi)" style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px;">
+    <button onclick="alert('🔍 Searching best flights for you... (Demo)')" style="width:100%; padding:15px; background:#d81e05; color:white; border:none; border-radius:8px; font-size:18px;">
+      Search Flights
+    </button>
   </div>
 
   <!-- Services -->
   <div class="services">
-    <div class="service"><img src="https://img.icons8.com/ios-filled/50/hotel.png" alt="Hotels"><p>Hotels</p></div>
-    <div class="service"><img src="https://img.icons8.com/ios-filled/50/car.png" alt="Car"><p>Car Rentals</p></div>
-    <div class="service"><img src="https://img.icons8.com/ios-filled/50/sun.png" alt="Tours"><p>Tours & Activities</p></div>
-    <div class="service"><img src="https://img.icons8.com/ios-filled/50/driver.png" alt="Chauffeur"><p>Chauffeur Drive</p></div>
+    <h2>Our Services</h2>
+    <div class="cards">
+      <div class="card">Flights</div>
+      <div class="card">Hotels</div>
+      <div class="card">Car Rental</div>
+    </div>
   </div>
 
   <!-- Featured Destinations -->
-  <section class="destinations">
+  <div class="destinations">
     <h2 id="dest-title">Featured Destinations from Abu Dhabi</h2>
     <div class="cards">
-      <div class="card">
-        <img src="https://source.unsplash.com/random/300x200/?london" alt="London">
-        <div class="card-content">
-          <h3>London, UK</h3>
-          <p>Economy Return</p>
-          <p class="price">from AED 2,850</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://source.unsplash.com/random/300x200/?paris" alt="Paris">
-        <div class="card-content">
-          <h3>Paris, France</h3>
-          <p>Economy Return</p>
-          <p class="price">from AED 3,150</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://source.unsplash.com/random/300x200/?bangkok" alt="Bangkok">
-        <div class="card-content">
-          <h3>Bangkok, Thailand</h3>
-          <p>Economy Return</p>
-          <p class="price">from AED 2,450</p>
-        </div>
-      </div>
+      <div class="card"><img src="https://source.unsplash.com/random/300x200/?london" alt=""><p><b>London</b><br>from AED 2,850</p></div>
+      <div class="card"><img src="https://source.unsplash.com/random/300x200/?paris" alt=""><p><b>Paris</b><br>from AED 3,150</p></div>
+      <div class="card"><img src="https://source.unsplash.com/random/300x200/?bangkok" alt=""><p><b>Bangkok</b><br>from AED 2,450</p></div>
     </div>
-  </section>
+  </div>
+
+  <!-- AI Chat Assistant -->
+  <div class="chat-box">
+    <div class="chat-header">💬 SkyGuide AI Assistant</div>
+    <div class="chat-body" id="chatBody">
+      <div class="message ai">Hello! How can I help you plan your trip today?</div>
+    </div>
+    <div style="padding:10px; display:flex;">
+      <input type="text" id="userInput" placeholder="Ask anything..." style="flex:1; padding:10px;" onkeypress="handleKey(event)">
+      <button onclick="sendMessage()" style="margin-left:5px; padding:10px 20px;">Send</button>
+    </div>
+  </div>
+
+  <footer>
+    <p><b>SkyGuide AI</b> - Grade 11 AI Project | Abu Dhabi, UAE</p>
+    <p>This is a school prototype. Always check real prices on Etihad.com & Emirates.com</p>
+  </footer>
 
   <script>
     let currentLang = 'en';
-    const translations = {
-      en: { heroTitle: "Enjoy flexible travel with AI", heroSubtitle: "Smart flight suggestions • Personalized plans • From Abu Dhabi", destTitle: "Featured Destinations from Abu Dhabi" },
-      ar: { heroTitle: "استمتع بالسفر المرن مع الذكاء الاصطناعي", heroSubtitle: "اقتراحات طيران ذكية • خطط مخصصة • من أبوظبي", destTitle: "الوجهات المميزة من أبوظبي" }
-    };
-
     function switchLanguage() {
       currentLang = currentLang === 'en' ? 'ar' : 'en';
-      document.getElementById('hero-title').textContent = translations[currentLang].heroTitle;
-      document.getElementById('hero-subtitle').textContent = translations[currentLang].heroSubtitle;
-      document.getElementById('dest-title').textContent = translations[currentLang].destTitle;
+      alert(currentLang === 'ar' ? "تم تبديل اللغة إلى العربية" : "Language switched to English");
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      if (!input.value) return;
+      
+      const chatBody = document.getElementById("chatBody");
+      chatBody.innerHTML += `<div class="message user">${input.value}</div>`;
+      
+      setTimeout(() => {
+        chatBody.innerHTML += `<div class="message ai">Here are the best options for you.<br>Would you like me to show flight suggestions?</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 800);
+      
+      input.value = "";
+    }
+
+    function handleKey(e) {
+      if (e.key === "Enter") sendMessage();
     }
   </script>
 </body>
