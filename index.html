@@ -3,211 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkyGuide AI - Smart Travel Assistant</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, #0a3d62, #1e90ff);
-      color: white;
-    }
-    header {
-      background: rgba(0,0,0,0.7);
-      padding: 15px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo { font-size: 28px; font-weight: bold; }
-    
-    .chat-container {
-      max-width: 900px;
-      margin: 40px auto;
-      background: white;
-      color: black;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .chat-header {
-      background: #0a3d62;
-      padding: 20px;
-      text-align: center;
-      color: white;
-    }
-    .chat-body {
-      height: 500px;
-      overflow-y: auto;
-      padding: 20px;
-      background: #f8f9fa;
-    }
-    .message {
-      margin: 15px 0;
-      padding: 12px 18px;
-      border-radius: 18px;
-      max-width: 80%;
-    }
-    .user { background: #1e90ff; color: white; margin-left: auto; border-bottom-right-radius: 5px; }
-    .ai { background: #e9ecef; margin-right: auto; border-bottom-left-radius: 5px; }
-
-    .input-area {
-      padding: 20px;
-      background: white;
-      border-top: 1px solid #ddd;
-      display: flex;
-    }
-    input {
-      flex: 1;
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 30px;
-      font-size: 16px;
-    }
-    button {
-      margin-left: 10px;
-      padding: 0 30px;
-      background: #1e90ff;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 15px 0;
-    }
-    th, td {
-      padding: 12px;
-      border: 1px solid #ddd;
-      text-align: left;
-    }
-    th { background: #0a3d62; color: white; }
-  </style>
+  <title>SkyGuide AI</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header>
     <div class="logo">✈️ SkyGuide AI</div>
-    <button onclick="switchLanguage()" style="padding:8px 16px; font-size:16px;">
-      🇦🇪 AR / EN
-    </button>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="flights.html">Flights</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button onclick="switchLanguage()" class="lang-btn">🇦🇪 AR / EN</button>
   </header>
 
-  <div class="chat-container">
-    <div class="chat-header" id="chatHeader">
-      <h2 id="title">AI Travel Assistant</h2>
-      <p id="subtitle">Your smart airline booking helper from Abu Dhabi</p>
-    </div>
-    
-    <div class="chat-body" id="chatBody">
-      <!-- Messages will be added here by JavaScript -->
-    </div>
-
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKey(event)">
-      <button onclick="sendMessage()">Send</button>
-    </div>
+  <div class="hero">
+    <h1 id="hero-title">Your Smart Travel Assistant</h1>
+    <p id="hero-subtitle">Plan • Book • Travel smarter from Abu Dhabi</p>
+    <a href="flights.html" class="btn">Start Planning Trip</a>
   </div>
 
-  <script>
-    let currentLang = 'en';
-
-    const translations = {
-      en: {
-        title: "AI Travel Assistant",
-        subtitle: "Your smart airline booking helper from Abu Dhabi",
-        welcome: "Hello! I'm SkyGuide AI 🌟<br>How can I help you with your trip today?<br>Example: Find cheap flights from Abu Dhabi to London next month",
-        placeholder: "Type your travel request here...",
-        send: "Send"
-      },
-      ar: {
-        title: "مساعد السفر الذكي",
-        subtitle: "مساعد حجز الطيران الذكي من أبوظبي",
-        welcome: "مرحبا! أنا سكاي جايد AI 🌟<br>كيف يمكنني مساعدتك في رحلتك اليوم؟<br>مثال: ابحث عن رحلات رخيصة من أبوظبي إلى لندن الشهر القادم",
-        placeholder: "اكتب طلب سفرك هنا...",
-        send: "إرسال"
-      }
-    };
-
-    function updateLanguage() {
-      const t = translations[currentLang];
-      
-      document.getElementById('title').textContent = t.title;
-      document.getElementById('subtitle').textContent = t.subtitle;
-      document.getElementById('userInput').placeholder = t.placeholder;
-    }
-
-    function switchLanguage() {
-      currentLang = currentLang === 'en' ? 'ar' : 'en';
-      updateLanguage();
-      
-      // Clear chat and show new welcome message
-      document.getElementById('chatBody').innerHTML = `
-        <div class="message ai" style="direction: ${currentLang === 'ar' ? 'rtl' : 'ltr'}">
-          ${translations[currentLang].welcome}
-        </div>
-      `;
-    }
-
-    function sendMessage() {
-      const input = document.getElementById("userInput");
-      const message = input.value.trim();
-      if (!message) return;
-
-      const chatBody = document.getElementById("chatBody");
-
-      // User message
-      chatBody.innerHTML += `
-        <div class="message user" style="direction: ${currentLang === 'ar' ? 'rtl' : 'ltr'}">
-          ${message}
-        </div>
-      `;
-
-      // AI Response with example prices
-      setTimeout(() => {
-        let reply = `
-          <div class="message ai" style="direction: ${currentLang === 'ar' ? 'rtl' : 'ltr'}">
-            ${currentLang === 'ar' ? 
-              'إليك أفضل الخيارات لك:' : 
-              'Here are the best options for you:'}
-            <br><br>
-            <table>
-              <tr><th>${currentLang === 'ar' ? 'الرحلة' : 'Flight'}</th>
-                  <th>${currentLang === 'ar' ? 'الإقلاع' : 'Departure'}</th>
-                  <th>${currentLang === 'ar' ? 'السعر (درهم)' : 'Price (AED)'}</th>
-                  <th>${currentLang === 'ar' ? 'المدة' : 'Duration'}</th></tr>
-              <tr><td>Etihad EY-11</td><td>10:00 AM</td><td>2,450</td><td>7h 30m</td></tr>
-              <tr><td>Emirates EK-123</td><td>02:15 PM</td><td>2,780</td><td>7h 45m</td></tr>
-              <tr><td>FlyDubai FZ-301</td><td>08:45 PM</td><td>1,980</td><td>8h 10m</td></tr>
-            </table>
-            <br>
-            💡 ${currentLang === 'ar' ? 'نصيحة: احجز مبكراً للحصول على أسعار أفضل!' : 'Tip: Book early for better prices!'}<br>
-            ⚠️ ${currentLang === 'ar' ? 'يرجى التحقق من الأسعار الحقيقية على' : 'Please check real prices on'} 
-            <b>etihad.com</b> ${currentLang === 'ar' ? 'أو' : 'or'} <b>emirates.com</b>
-          </div>
-        `;
-        chatBody.innerHTML += reply;
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }, 800);
-
-      input.value = "";
-    }
-
-    function handleKey(e) {
-      if (e.key === "Enter") sendMessage();
-    }
-
-    // Initialize
-    window.onload = () => {
-      document.getElementById('chatBody').innerHTML = `
-        <div class="message ai">
-          ${translations.en.welcome}
-        </div>
-      `;
-    };
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
