@@ -6,24 +6,28 @@
 <title>SkyGuide AI</title>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
+body{font-family:Arial;margin:0;background:#f5f5f5}
 
+/* HEADER */
 header{
   background:#111;
   color:white;
-  padding:15px;
+  padding:12px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
 .lang-btn{
-  padding:6px 10px;
-  font-size:12px;
-  border-radius:12px;
+  font-size:11px;
+  padding:5px 10px;
+  border-radius:10px;
   border:none;
-  cursor:pointer;
 }
+
+/* PAGES */
+.page{display:none;padding:40px}
+.active{display:block}
 
 /* HERO */
 .hero{
@@ -37,37 +41,16 @@ header{
   text-align:center;
 }
 
-/* SEARCH */
-.search{
-  background:white;
-  margin:-40px auto 30px;
-  padding:20px;
-  width:90%;
-  max-width:900px;
-  border-radius:10px;
-}
-
-input,button{
-  width:100%;
-  padding:10px;
-  margin:5px 0;
-}
-
 /* CARDS */
-.cards{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:20px;
-}
+.cards{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
 
 .card{
-  width:250px;
+  width:240px;
   background:white;
   border-radius:10px;
   overflow:hidden;
-  text-align:center;
   cursor:pointer;
+  text-align:center;
 }
 
 .card img{
@@ -76,50 +59,31 @@ input,button{
   object-fit:cover;
 }
 
-.price{ color:#d81e05; font-weight:bold; }
-
-.book-btn{
+/* BUTTON */
+.btn{
   background:#d81e05;
   color:white;
   border:none;
-  padding:8px;
+  padding:10px;
   width:90%;
-  margin:8px auto;
+  margin:10px;
   border-radius:8px;
-  cursor:pointer;
-}
-
-/* MODAL */
-.modal{
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.8);
-  justify-content:center;
-  align-items:center;
-}
-
-.modal-content{
-  background:white;
-  padding:25px;
-  border-radius:12px;
-  max-width:400px;
-  text-align:center;
 }
 
 /* TEAM */
-.team{
-  text-align:center;
-  padding:50px 20px;
-  background:#f8f9fa;
+.team img{
+  width:70%;
+  border-radius:15px;
 }
 
-.team img{
-  max-width:650px;
-  border-radius:15px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.15);
-  cursor:pointer;
+/* BOOK PAGE */
+.box{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  max-width:500px;
+  margin:auto;
+  text-align:center;
 }
 </style>
 </head>
@@ -127,97 +91,120 @@ input,button{
 <body>
 
 <header>
-  <h2>✈️ SkyGuide AI</h2>
-  <button class="lang-btn" onclick="switchLang()">🌐 AR / EN</button>
+  <div>✈️ SkyGuide AI</div>
+  <button class="lang-btn" onclick="langSwitch()">AR / EN</button>
 </header>
 
-<!-- HERO -->
+<!-- HOME PAGE -->
+<div id="home" class="page active">
+
 <section class="hero">
   <div>
     <h1>Travel Smarter with AI</h1>
-    <p>Your Intelligent Travel Assistant</p>
+    <p>AI Airline Booking Assistant</p>
+    <button class="btn" onclick="scrollToDest()">Start</button>
   </div>
 </section>
 
-<!-- SEARCH -->
-<div class="search">
-  <input placeholder="From (Abu Dhabi)">
-  <input placeholder="To (Destination)">
-  <button>Search Flights</button>
-</div>
+<!-- ABOUT (YOUR TEXT) -->
+<section>
+<h2>What is our project about?</h2>
+<p>
+SkyGuide AI is an AI-Powered Airline Booking & Travel Assistant.
+<br><br>
+<b>Main Purpose:</b><br>
+It helps people (especially travelers from Abu Dhabi/UAE) plan their flights and trips more easily and quickly using Artificial Intelligence.
+<br><br>
+<b>How it helps:</b><br>
+• Chat in natural language<br>
+• Suggests flights automatically<br>
+• Shows prices & times<br>
+• Works in Arabic & English<br>
+• Encourages booking via official airlines (Etihad / Emirates)
+</p>
+</section>
 
 <!-- DESTINATIONS -->
-<section style="text-align:center; padding:40px;">
-<h2>Popular Destinations</h2>
+<section style="text-align:center">
+<h2>Destinations</h2>
 
 <div class="cards">
 
-  <div class="card" onclick="showInfo('london')">
+  <div class="card" onclick="openCity('london')">
     <img src="lon1.avif">
     <p>London</p>
-    <button class="book-btn" onclick="book('London')">Book Now</button>
   </div>
 
-  <div class="card" onclick="showInfo('paris')">
+  <div class="card" onclick="openCity('paris')">
     <img src="paris1.jpg">
     <p>Paris</p>
-    <button class="book-btn" onclick="book('Paris')">Book Now</button>
   </div>
 
-  <div class="card" onclick="showInfo('bangkok')">
+  <div class="card" onclick="openCity('bangkok')">
     <img src="thai.jpg">
     <p>Bangkok</p>
-    <button class="book-btn" onclick="book('Bangkok')">Book Now</button>
   </div>
 
-  <div class="card" onclick="showInfo('dubai')">
+  <div class="card" onclick="openCity('dubai')">
     <img src="dub1.jpg">
     <p>Dubai</p>
-    <button class="book-btn" onclick="book('Dubai')">Book Now</button>
   </div>
 
-  <div class="card" onclick="showInfo('newyork')">
+  <div class="card" onclick="openCity('newyork')">
     <img src="new1.jpg">
     <p>New York</p>
-    <button class="book-btn" onclick="book('New York')">Book Now</button>
   </div>
 
-  <div class="card" onclick="showInfo('istanbul')">
+  <div class="card" onclick="openCity('istanbul')">
     <img src="ist1.jpg">
     <p>Istanbul</p>
-    <button class="book-btn" onclick="book('Istanbul')">Book Now</button>
   </div>
 
 </div>
 </section>
+
+</div>
+
+<!-- CITY PAGE -->
+<div id="cityPage" class="page">
+  <h2 id="cityName"></h2>
+  <p id="cityInfo"></p>
+  <button class="btn" onclick="goBook()">Book Now</button>
+  <button class="btn" onclick="goHome()">Back</button>
+</div>
+
+<!-- BOOKING PAGE -->
+<div id="bookPage" class="page">
+  <div class="box">
+    <h2>Booking Confirmed 🎟</h2>
+    <p id="bookText"></p>
+    <button class="btn" onclick="goHome()">Return Home</button>
+  </div>
+</div>
 
 <!-- TEAM -->
-<section class="team">
-  <h2>Our Team</h2>
-  <p style="margin:15px 0;">Grade 11 AI Project Group</p>
+<section class="team" style="text-align:center">
+<h2>Our Team</h2>
+<p>Grade 11 AI Project Group</p>
 
-  <img src="ourteam.png" onclick="zoomPhoto()">
+<img src="ourteam.png">
 
-  <p style="margin-top:20px; font-weight:bold;">
-    Mahra Alzaabi, Sarah Hussein, Sarah Alnuaimi, Fatema Mohamed, Shamma Hamad
-  </p>
+<p style="margin-top:15px">
+Mahra Alzaabi, Sarah Hussein, Sarah Alnuaimi, Fatema Mohamed, Shamma Hamad
+</p>
 </section>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <h2 id="title"></h2>
-    <p id="info"></p>
-    <button onclick="closeModal()">Close</button>
-  </div>
-</div>
 
 <script>
 
-function showInfo(city){
-  let modal=document.getElementById("modal");
-  let title=document.getElementById("title");
-  let info=document.getElementById("info");
+let currentCity="";
+
+function show(page){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(page).classList.add("active");
+}
+
+function openCity(city){
+  currentCity=city;
 
   let data={
     london:"7h 30m • AED 2850",
@@ -228,25 +215,28 @@ function showInfo(city){
     istanbul:"5h • AED 1800"
   };
 
-  title.innerText=city.toUpperCase();
-  info.innerText=data[city];
-  modal.style.display="flex";
+  document.getElementById("cityName").innerText=city.toUpperCase();
+  document.getElementById("cityInfo").innerText=data[city];
+
+  show("cityPage");
 }
 
-function closeModal(){
-  document.getElementById("modal").style.display="none";
+function goBook(){
+  document.getElementById("bookText").innerText=
+  "Your trip to " + currentCity + " is reserved (Demo System).";
+  show("bookPage");
 }
 
-function book(city){
-  alert("🎟 Booking confirmed for " + city + " (Demo)");
+function goHome(){
+  show("home");
 }
 
-function zoomPhoto(){
-  alert("📸 Group Photo - SkyGuide AI Team");
+function langSwitch(){
+  alert("🌐 Language switch ready (EN / AR)");
 }
 
-function switchLang(){
-  alert("🌐 Arabic / English Switch Ready");
+function scrollToDest(){
+  window.scrollTo({top:600,behavior:"smooth"});
 }
 
 </script>
