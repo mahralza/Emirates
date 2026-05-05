@@ -20,7 +20,6 @@
       z-index: 100;
     }
     .logo { font-size: 26px; font-weight: bold; }
-    nav a { color: white; text-decoration: none; margin: 0 18px; font-weight: 500; }
 
     .hero {
       background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/random/1600x900/?airplane') center/cover;
@@ -44,10 +43,13 @@
       padding: 25px;
     }
 
-    .services, .destinations, .deals {
+    .destinations {
       padding: 60px 40px;
       text-align: center;
+      background: #f8f9fa;
     }
+    .destinations h2 { margin-bottom: 40px; font-size: 32px; color: #002d62; }
+
     .cards {
       display: flex;
       justify-content: center;
@@ -55,38 +57,21 @@
       flex-wrap: wrap;
     }
     .card {
-      width: 300px;
+      width: 320px;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    .card img { width: 100%; height: 180px; object-fit: cover; }
-
-    /* AI Chat */
-    .chat-box {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 380px;
       background: white;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      overflow: hidden;
-      z-index: 1000;
     }
-    .chat-header { background: #002d62; color: white; padding: 12px; text-align: center; }
-    .chat-body { height: 320px; overflow-y: auto; padding: 15px; background: #f8f9fa; }
-    .message { margin: 10px 0; padding: 12px; border-radius: 15px; }
-    .ai { background: #e9ecef; }
-    .user { background: #002d62; color: white; margin-left: auto; text-align: right; }
-
-    footer {
-      background: #1e1e1e;
-      color: white;
-      text-align: center;
-      padding: 40px;
-      margin-top: 50px;
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
     }
+    .card-content {
+      padding: 15px;
+    }
+    .price { color: #d81e05; font-weight: bold; font-size: 18px; }
   </style>
 </head>
 <body>
@@ -107,79 +92,61 @@
   <section class="hero">
     <div>
       <h1 id="hero-title">Travel Smarter with AI</h1>
-      <p id="hero-subtitle">Instant flight suggestions • Personalized itineraries • From Abu Dhabi</p>
+      <p id="hero-subtitle">Instant flight suggestions • Personalized plans • From Abu Dhabi</p>
     </div>
   </section>
 
   <!-- Search Bar -->
   <div class="search-bar">
     <input type="text" placeholder="Where are you flying from? (e.g. Abu Dhabi)" style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px;">
-    <button onclick="alert('🔍 Searching best flights for you... (Demo)')" style="width:100%; padding:15px; background:#d81e05; color:white; border:none; border-radius:8px; font-size:18px;">
+    <button onclick="alert('🔍 Searching best flights for you...')" style="width:100%; padding:15px; background:#d81e05; color:white; border:none; border-radius:8px; font-size:18px;">
       Search Flights
     </button>
   </div>
 
-  <!-- Services -->
-  <div class="services">
-    <h2>Our Services</h2>
-    <div class="cards">
-      <div class="card">Flights</div>
-      <div class="card">Hotels</div>
-      <div class="card">Car Rental</div>
-    </div>
-  </div>
-
   <!-- Featured Destinations -->
-  <div class="destinations">
+  <section class="destinations">
     <h2 id="dest-title">Featured Destinations from Abu Dhabi</h2>
     <div class="cards">
-      <div class="card"><img src="https://source.unsplash.com/random/300x200/?london" alt=""><p><b>London</b><br>from AED 2,850</p></div>
-      <div class="card"><img src="https://source.unsplash.com/random/300x200/?paris" alt=""><p><b>Paris</b><br>from AED 3,150</p></div>
-      <div class="card"><img src="https://source.unsplash.com/random/300x200/?bangkok" alt=""><p><b>Bangkok</b><br>from AED 2,450</p></div>
-    </div>
-  </div>
 
-  <!-- AI Chat Assistant -->
-  <div class="chat-box">
-    <div class="chat-header">💬 SkyGuide AI Assistant</div>
-    <div class="chat-body" id="chatBody">
-      <div class="message ai">Hello! How can I help you plan your trip today?</div>
-    </div>
-    <div style="padding:10px; display:flex;">
-      <input type="text" id="userInput" placeholder="Ask anything..." style="flex:1; padding:10px;" onkeypress="handleKey(event)">
-      <button onclick="sendMessage()" style="margin-left:5px; padding:10px 20px;">Send</button>
-    </div>
-  </div>
+      <!-- London -->
+      <div class="card">
+        <img src="lon1.avif" alt="London">
+        <div class="card-content">
+          <h3>London, UK</h3>
+          <p>Economy Return</p>
+          <p class="price">from AED 2,850</p>
+        </div>
+      </div>
 
-  <footer>
-    <p><b>SkyGuide AI</b> - Grade 11 AI Project | Abu Dhabi, UAE</p>
-    <p>This is a school prototype. Always check real prices on Etihad.com & Emirates.com</p>
-  </footer>
+      <!-- Paris -->
+      <div class="card">
+        <img src="paris1.jpg" alt="Paris">
+        <div class="card-content">
+          <h3>Paris, France</h3>
+          <p>Economy Return</p>
+          <p class="price">from AED 3,150</p>
+        </div>
+      </div>
+
+      <!-- Bangkok -->
+      <div class="card">
+        <img src="thai.jpg" alt="Bangkok">
+        <div class="card-content">
+          <h3>Bangkok, Thailand</h3>
+          <p>Economy Return</p>
+          <p class="price">from AED 2,450</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <script>
     let currentLang = 'en';
     function switchLanguage() {
       currentLang = currentLang === 'en' ? 'ar' : 'en';
-      alert(currentLang === 'ar' ? "تم تبديل اللغة إلى العربية" : "Language switched to English");
-    }
-
-    function sendMessage() {
-      const input = document.getElementById("userInput");
-      if (!input.value) return;
-      
-      const chatBody = document.getElementById("chatBody");
-      chatBody.innerHTML += `<div class="message user">${input.value}</div>`;
-      
-      setTimeout(() => {
-        chatBody.innerHTML += `<div class="message ai">Here are the best options for you.<br>Would you like me to show flight suggestions?</div>`;
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }, 800);
-      
-      input.value = "";
-    }
-
-    function handleKey(e) {
-      if (e.key === "Enter") sendMessage();
+      alert(currentLang === 'ar' ? "تم تغيير اللغة إلى العربية" : "Language changed to English");
     }
   </script>
 </body>
