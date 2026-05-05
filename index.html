@@ -43,20 +43,10 @@
       padding: 25px;
     }
 
-    section {
-      padding: 60px 40px;
-    }
-    .about-project {
-      background: #f8f9fa;
-      text-align: center;
-    }
-    .about-project h2 {
-      color: #002d62;
-      margin-bottom: 25px;
-    }
-
     .destinations {
+      padding: 60px 40px;
       text-align: center;
+      background: #f8f9fa;
     }
     .destinations h2 { margin-bottom: 40px; color: #002d62; }
 
@@ -72,7 +62,10 @@
       overflow: hidden;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       background: white;
+      cursor: pointer;
+      transition: 0.3s;
     }
+    .card:hover { transform: scale(1.05); }
     .card img {
       width: 100%;
       height: 200px;
@@ -80,14 +73,28 @@
     }
     .card-content {
       padding: 15px;
+      text-align: left;
     }
-    .price { color: #d81e05; font-weight: bold; font-size: 18px; }
+    .price { color: #d81e05; font-weight: bold; }
 
-    footer {
-      background: #1e1e1e;
-      color: white;
-      text-align: center;
-      padding: 40px;
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      color: black;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 12px;
+      padding: 20px;
     }
   </style>
 </head>
@@ -99,13 +106,12 @@
     <nav>
       <a href="#">Book</a>
       <a href="#">Destinations</a>
-      <a href="#">Deals</a>
       <a href="#">Help</a>
     </nav>
     <button onclick="switchLanguage()" style="padding:8px 16px; border-radius:20px;">🇦🇪 AR / EN</button>
   </header>
 
-  <!-- Hero Banner -->
+  <!-- Hero -->
   <section class="hero">
     <div>
       <h1 id="hero-title">Travel Smarter with AI</h1>
@@ -115,65 +121,37 @@
 
   <!-- Search Bar -->
   <div class="search-bar">
-    <input type="text" placeholder="Where are you flying from? (e.g. Abu Dhabi AUH)" style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px; font-size:16px;">
-    <button onclick="alert('🔍 Searching best flights for you... (Demo)')" style="width:100%; padding:15px; background:#d81e05; color:white; border:none; border-radius:8px; font-size:18px;">
+    <input type="text" placeholder="Where are you flying from? (e.g. Abu Dhabi AUH)" style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px;">
+    <button onclick="alert('Searching best flights... (Demo)')" style="width:100%; padding:15px; background:#d81e05; color:white; border:none; border-radius:8px; font-size:18px;">
       Search Flights
     </button>
   </div>
 
-  <!-- About Our Project -->
-  <section class="about-project">
-    <h2 id="about-title">About Our Project</h2>
-    <div style="max-width: 900px; margin: 0 auto; font-size: 18px; line-height: 1.7;">
-      <p><strong>SkyGuide AI</strong> is an <strong>AI-Powered Airline Booking & Travel Assistant</strong>.</p>
-      <p>It helps travelers plan their trips easily by chatting in natural language (Arabic & English).</p>
-      
-      <p style="margin: 25px 0;">
-        Just type something like:<br>
-        <strong>“Find me a cheap flight from Abu Dhabi to London next month”</strong>
-      </p>
-      
-      <p><strong>What our AI does:</strong></p>
-      <ul style="display: inline-block; text-align: left; margin: 20px 0;">
-        <li>✅ Understands normal conversation</li>
-        <li>✅ Suggests best flight options</li>
-        <li>✅ Shows clear comparison tables</li>
-        <li>✅ Gives personalized travel tips</li>
-        <li>✅ Always reminds users to book on official websites</li>
-      </ul>
-      
-      <p><strong>This is a Grade 11 AI Project</strong> using Prompt Engineering and Large Language Models (LLM).</p>
-    </div>
-  </section>
-
-  <!-- Featured Destinations -->
+  <!-- Destinations -->
   <section class="destinations">
     <h2 id="dest-title">Featured Destinations from Abu Dhabi</h2>
     <div class="cards">
 
-      <div class="card">
+      <div class="card" onclick="showInfo('london')">
         <img src="lon1.avif" alt="London">
         <div class="card-content">
           <h3>London, UK</h3>
-          <p>Economy Return</p>
           <p class="price">from AED 2,850</p>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" onclick="showInfo('paris')">
         <img src="paris1.jpg" alt="Paris">
         <div class="card-content">
           <h3>Paris, France</h3>
-          <p>Economy Return</p>
           <p class="price">from AED 3,150</p>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" onclick="showInfo('bangkok')">
         <img src="thai.jpg" alt="Bangkok">
         <div class="card-content">
           <h3>Bangkok, Thailand</h3>
-          <p>Economy Return</p>
           <p class="price">from AED 2,450</p>
         </div>
       </div>
@@ -181,17 +159,65 @@
     </div>
   </section>
 
+  <!-- Info Modal -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <h2 id="modalTitle"></h2>
+      <p id="modalInfo"></p>
+      <button onclick="closeModal()" style="margin-top:15px; padding:10px 20px;">Close</button>
+    </div>
+  </div>
+
   <footer>
     <p><strong>SkyGuide AI</strong> — Grade 11 AI Project | Abu Dhabi, UAE</p>
-    <p>This is a school prototype. Always verify prices and book on official airline websites.</p>
   </footer>
 
   <script>
-    let currentLang = 'en';
+    function showInfo(city) {
+      const modal = document.getElementById('infoModal');
+      const title = document.getElementById('modalTitle');
+      const info = document.getElementById('modalInfo');
+
+      if (city === 'london') {
+        title.textContent = "London, United Kingdom";
+        info.innerHTML = `
+          <strong>Estimated Price:</strong> AED 2,850 - 3,500 (Economy Return)<br><br>
+          <strong>Flight Duration:</strong> 7 hours 30 minutes (Direct)<br>
+          <strong>Best Airlines:</strong> Etihad, Emirates, British Airways<br>
+          <strong>Recommended Stay:</strong> 5-7 days<br>
+          <strong>Popular Areas:</strong> Central London, near Big Ben & Tower Bridge
+        `;
+      } 
+      else if (city === 'paris') {
+        title.textContent = "Paris, France";
+        info.innerHTML = `
+          <strong>Estimated Price:</strong> AED 3,150 - 4,200 (Economy Return)<br><br>
+          <strong>Flight Duration:</strong> 7 hours 10 minutes (Direct)<br>
+          <strong>Best Airlines:</strong> Etihad, Emirates, Air France<br>
+          <strong>Recommended Stay:</strong> 4-6 days<br>
+          <strong>Popular Areas:</strong> Eiffel Tower, Louvre Museum, Champs-Élysées
+        `;
+      } 
+      else if (city === 'bangkok') {
+        title.textContent = "Bangkok, Thailand";
+        info.innerHTML = `
+          <strong>Estimated Price:</strong> AED 2,450 - 3,100 (Economy Return)<br><br>
+          <strong>Flight Duration:</strong> 6 hours 45 minutes (Direct)<br>
+          <strong>Best Airlines:</strong> Etihad, Emirates, Thai Airways<br>
+          <strong>Recommended Stay:</strong> 5-8 days<br>
+          <strong>Popular Areas:</strong> Bangkok City, Grand Palace, Chatuchak Market
+        `;
+      }
+
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById('infoModal').style.display = "none";
+    }
 
     function switchLanguage() {
-      currentLang = currentLang === 'en' ? 'ar' : 'en';
-      alert(currentLang === 'ar' ? "تم تغيير اللغة إلى العربية 🇦🇪" : "Language changed to English 🇬🇧");
+      alert("Language switch feature (AR/EN) is ready");
     }
   </script>
 </body>
