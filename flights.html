@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flights - SkyGuide AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">✈️ SkyGuide AI</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="flights.html" class="active">Flights</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button onclick="switchLanguage()" class="lang-btn">🇦🇪 AR / EN</button>
+  </header>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2 id="chat-title">AI Travel Assistant</h2>
+    </div>
+    
+    <div class="chat-body" id="chatBody"></div>
+
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type your request..." onkeypress="handleKey(event)">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
