@@ -25,7 +25,7 @@ header{
   cursor:pointer;
 }
 
-/* BANNER */
+/* ===== BANNER ===== */
 .banner{
   height:55vh;
   display:flex;
@@ -34,7 +34,8 @@ header{
   text-align:center;
   color:white;
   background-size:cover;
-  transition:1s;
+  background-position:center;
+  transition: background-image 1s ease-in-out;
 }
 
 /* SEARCH */
@@ -150,10 +151,10 @@ input,button{
 
 <header>
   <h2>✈️ SkyGuide AI</h2>
-  <button class="lang-btn" onclick="switchLang()">🌐 AR / EN</button>
+  <button class="lang-btn">🌐 AR / EN</button>
 </header>
 
-<!-- BANNER -->
+<!-- ✅ WORKING BANNER -->
 <div class="banner" id="banner">
   <div>
     <h1>Travel Smarter with AI</h1>
@@ -234,7 +235,7 @@ input,button{
   </div>
 </div>
 
-<!-- AI CHAT -->
+<!-- CHAT -->
 <div class="chat">
   <div style="background:#002d62;color:white;padding:10px;text-align:center;">
     AI Assistant
@@ -245,20 +246,27 @@ input,button{
 
 <script>
 
-/* BANNER */
-let banners=[
- "url('https://source.unsplash.com/1600x900/?airplane')",
- "url('https://source.unsplash.com/1600x900/?dubai,skyline')",
- "url('https://source.unsplash.com/1600x900/?airport')"
+/* ===== BANNER SLIDER ===== */
+let banners = [
+  "https://source.unsplash.com/1600x900/?airplane",
+  "https://source.unsplash.com/1600x900/?dubai,skyline",
+  "https://source.unsplash.com/1600x900/?airport",
+  "https://source.unsplash.com/1600x900/?travel"
 ];
 
-let i=0;
-setInterval(()=>{
-  document.getElementById("banner").style.backgroundImage=banners[i];
-  i=(i+1)%banners.length;
-},4000);
+let i = 0;
 
-/* MODAL */
+function changeBanner(){
+  document.getElementById("banner").style.backgroundImage =
+    `url('${banners[i]}')`;
+
+  i = (i + 1) % banners.length;
+}
+
+changeBanner();
+setInterval(changeBanner, 4000);
+
+/* ===== MODAL ===== */
 function showInfo(city){
   let data={
     london:"7h 30m • AED 2850",
@@ -278,12 +286,12 @@ function closeModal(){
   document.getElementById("modal").style.display="none";
 }
 
-/* BOOKING */
+/* ===== BOOK ===== */
 function book(city){
-  alert("🎟 Booking confirmed for " + city);
+  alert("🎟 Booking confirmed for " + city + " (Demo)");
 }
 
-/* AI CHAT */
+/* ===== AI CHAT ===== */
 function enter(e){
   if(e.key==="Enter"){
     let text=document.getElementById("input").value;
@@ -293,23 +301,15 @@ function enter(e){
 
     let reply="I can help you find flights ✈️";
 
-    if(text.toLowerCase().includes("london"))
-      reply="London: AED 2850 | 7h 30m";
-
-    else if(text.toLowerCase().includes("dubai"))
+    if(text.toLowerCase().includes("dubai"))
       reply="Dubai: AED 500 | 1h flight";
 
-    else if(text.toLowerCase().includes("price"))
-      reply="Prices start from AED 500";
+    else if(text.toLowerCase().includes("london"))
+      reply="London: AED 2850 | 7h 30m";
 
     chat.innerHTML+=`<div class='msg ai'>${reply}</div>`;
     document.getElementById("input").value="";
   }
-}
-
-/* LANGUAGE */
-function switchLang(){
-  alert("🌐 Language system ready");
 }
 
 </script>
