@@ -23,7 +23,7 @@
 
     .hero {
       background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/random/1600x900/?airplane') center/cover;
-      height: 75vh;
+      height: 70vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -43,13 +43,10 @@
       padding: 25px;
     }
 
-    .destinations {
-      padding: 60px 40px;
-      text-align: center;
-      background: #f8f9fa;
-    }
-    .destinations h2 { margin-bottom: 40px; color: #002d62; }
+    section { padding: 60px 40px; }
+    .about-project { background: #f8f9fa; text-align: center; }
 
+    .destinations { text-align: center; background: #f8f9fa; }
     .cards {
       display: flex;
       justify-content: center;
@@ -71,10 +68,7 @@
       height: 200px;
       object-fit: cover;
     }
-    .card-content {
-      padding: 15px;
-      text-align: left;
-    }
+    .card-content { padding: 15px; }
     .price { color: #d81e05; font-weight: bold; }
 
     /* Modal */
@@ -83,7 +77,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.8);
       z-index: 2000;
       justify-content: center;
       align-items: center;
@@ -92,9 +86,16 @@
       background: white;
       color: black;
       width: 90%;
-      max-width: 500px;
-      border-radius: 12px;
-      padding: 20px;
+      max-width: 520px;
+      border-radius: 15px;
+      padding: 25px;
+    }
+
+    footer {
+      background: #1e1e1e;
+      color: white;
+      text-align: center;
+      padding: 40px;
     }
   </style>
 </head>
@@ -103,33 +104,41 @@
   <!-- Header -->
   <header>
     <div class="logo">✈️ SkyGuide AI</div>
-    <nav>
-      <a href="#">Book</a>
-      <a href="#">Destinations</a>
-      <a href="#">Help</a>
-    </nav>
     <button onclick="switchLanguage()" style="padding:8px 16px; border-radius:20px;">🇦🇪 AR / EN</button>
   </header>
 
   <!-- Hero -->
   <section class="hero">
     <div>
-      <h1 id="hero-title">Travel Smarter with AI</h1>
-      <p id="hero-subtitle">Instant flight suggestions • Personalized plans • From Abu Dhabi</p>
+      <h1>Travel Smarter with AI</h1>
+      <p>Your Intelligent Airline Booking & Travel Assistant</p>
     </div>
   </section>
 
   <!-- Search Bar -->
   <div class="search-bar">
     <input type="text" placeholder="Where are you flying from? (e.g. Abu Dhabi AUH)" style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px;">
-    <button onclick="alert('Searching best flights... (Demo)')" style="width:100%; padding:15px; background:#d81e05; color:white; border:none; border-radius:8px; font-size:18px;">
+    <button onclick="alert('🔍 Searching best flights for you... (Demo)')" style="width:100%; padding:15px; background:#d81e05; color:white; border:none; border-radius:8px; font-size:18px;">
       Search Flights
     </button>
   </div>
 
-  <!-- Destinations -->
+  <!-- About Our Project -->
+  <section class="about-project">
+    <h2>About Our Project</h2>
+    <div style="max-width: 900px; margin: 0 auto; font-size: 18px; line-height: 1.7;">
+      <p><strong>SkyGuide AI</strong> is an AI-Powered Airline Booking & Travel Assistant.</p>
+      <p>It helps people plan their trips easily by chatting in natural language.</p>
+      <p style="margin: 20px 0;">
+        Just type: <strong>“I want to go to London next month”</strong>
+      </p>
+      <p>It suggests flights, shows prices, and gives useful tips.</p>
+    </div>
+  </section>
+
+  <!-- Featured Destinations -->
   <section class="destinations">
-    <h2 id="dest-title">Featured Destinations from Abu Dhabi</h2>
+    <h2>Featured Destinations from Abu Dhabi</h2>
     <div class="cards">
 
       <div class="card" onclick="showInfo('london')">
@@ -159,17 +168,25 @@
     </div>
   </section>
 
-  <!-- Info Modal -->
+  <!-- Our Team -->
+  <section style="padding: 80px 40px; text-align: center; background: #f8f9fa;">
+    <h2>Our Team</h2>
+    <p style="margin: 20px 0 40px;">Grade 11 AI Project Team</p>
+    <img src="ourteam.jpg" alt="Our Team" style="max-width: 600px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+  </section>
+
+  <!-- Destination Info Modal -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
-      <h2 id="modalTitle"></h2>
-      <p id="modalInfo"></p>
-      <button onclick="closeModal()" style="margin-top:15px; padding:10px 20px;">Close</button>
+      <h2 id="modalTitle" style="color:#002d62;"></h2>
+      <div id="modalInfo" style="line-height:1.8; margin:20px 0;"></div>
+      <button onclick="closeModal()" style="padding:10px 25px; background:#002d62; color:white; border:none; border-radius:8px;">Close</button>
     </div>
   </div>
 
   <footer>
     <p><strong>SkyGuide AI</strong> — Grade 11 AI Project | Abu Dhabi, UAE</p>
+    <p>This is a school prototype. Always check real prices on official airline websites.</p>
   </footer>
 
   <script>
@@ -180,35 +197,16 @@
 
       if (city === 'london') {
         title.textContent = "London, United Kingdom";
-        info.innerHTML = `
-          <strong>Estimated Price:</strong> AED 2,850 - 3,500 (Economy Return)<br><br>
-          <strong>Flight Duration:</strong> 7 hours 30 minutes (Direct)<br>
-          <strong>Best Airlines:</strong> Etihad, Emirates, British Airways<br>
-          <strong>Recommended Stay:</strong> 5-7 days<br>
-          <strong>Popular Areas:</strong> Central London, near Big Ben & Tower Bridge
-        `;
+        info.innerHTML = `Estimated Price: AED 2,850 – 3,500 (Return)<br><br>Flight Time: 7h 30m (Direct)<br>Best Airlines: Etihad & Emirates`;
       } 
       else if (city === 'paris') {
         title.textContent = "Paris, France";
-        info.innerHTML = `
-          <strong>Estimated Price:</strong> AED 3,150 - 4,200 (Economy Return)<br><br>
-          <strong>Flight Duration:</strong> 7 hours 10 minutes (Direct)<br>
-          <strong>Best Airlines:</strong> Etihad, Emirates, Air France<br>
-          <strong>Recommended Stay:</strong> 4-6 days<br>
-          <strong>Popular Areas:</strong> Eiffel Tower, Louvre Museum, Champs-Élysées
-        `;
+        info.innerHTML = `Estimated Price: AED 3,150 – 4,200 (Return)<br><br>Flight Time: 7h 10m (Direct)<br>Best Airlines: Etihad, Emirates`;
       } 
       else if (city === 'bangkok') {
         title.textContent = "Bangkok, Thailand";
-        info.innerHTML = `
-          <strong>Estimated Price:</strong> AED 2,450 - 3,100 (Economy Return)<br><br>
-          <strong>Flight Duration:</strong> 6 hours 45 minutes (Direct)<br>
-          <strong>Best Airlines:</strong> Etihad, Emirates, Thai Airways<br>
-          <strong>Recommended Stay:</strong> 5-8 days<br>
-          <strong>Popular Areas:</strong> Bangkok City, Grand Palace, Chatuchak Market
-        `;
+        info.innerHTML = `Estimated Price: AED 2,450 – 3,100 (Return)<br><br>Flight Time: 6h 45m (Direct)<br>Best Airlines: Etihad, Emirates`;
       }
-
       modal.style.display = "flex";
     }
 
@@ -217,7 +215,7 @@
     }
 
     function switchLanguage() {
-      alert("Language switch feature (AR/EN) is ready");
+      alert("Language switch (AR / EN) is ready");
     }
   </script>
 </body>
