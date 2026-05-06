@@ -1,36 +1,42 @@
 const express = require("express");
 const cors = require("cors");
+const OpenAI = require("openai");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/api/chat", (req, res) => {
-  const message = (req.body.message || "").toLowerCase();
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY // Set this in your .env file
+});
 
-  let reply = "I can help with flights, prices, destinations, and booking.";
+app.post("/api/chat", async (req, res) => {
+  const message = req.body.message || "";
 
-  if (message.includes("hello") || message.includes("hi")) {
-    reply = "Hello! Where would you like to travel?";
-  } else if (message.includes("london")) {
-    reply = "Flights to London cost around AED 2850 and take about 7h 30m.";
-  } else if (message.includes("paris")) {
-    reply = "Flights to Paris cost around AED 3150 and take about 7h 10m.";
-  } else if (message.includes("bangkok")) {
-    reply = "Flights to Bangkok cost around AED 2450 and take about 6h 45m.";
-  } else if (message.includes("dubai")) {
-    reply = "Dubai flights are short, around 1 hour, and cost about AED 500.";
-  } else if (message.includes("new york") || message.includes("newyork")) {
-    reply = "Flights to New York cost around AED 4200 and take about 14 hours.";
-  } else if (message.includes("istanbul")) {
-    reply = "Flights to Istanbul cost around AED 1800 and take about 5 hours.";
-  } else if (message.includes("price") || message.includes("cost")) {
-    reply = "Prices range from AED 500 to AED 4200 depending on destination.";
+  const systemPrompt = `You are SkyGuide AI, a travel assistant for flights from Abu Dhabi.
+  Available destinations: London (7h30m, AED 2850), Paris (7h10m, AED 3150), Bangkok (6h45m, AED 2450), 
+  Dubai (1h, AED 500), New York (14h, AED 4200), Istanbul (5h, AED 1800).
+  
+  Answer briefly and helpfully. Always mention flight time and price when possible.`;
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: message }
+      ],
+      max_tokens: 150
+    });
+
+    const reply = completion.choices[0].message.content;
+    res.json({ reply });
+  } catch (error) {
+    console.error("OpenAI error:", error);
+    res.status(500).json({ reply: "Sorry, I'm having trouble connecting right now." });
   }
-
-  res.json({ reply });
 });
 
 app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+  console.log("🚀 SkyGuide AI server running on http://localhost:3000");
 });
