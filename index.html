@@ -349,8 +349,7 @@
     }
 
     function toggleChat() {
-      const chat = document.getElementById("chatBox");
-      chat.classList.toggle("hidden");
+      document.getElementById("chatBox").classList.toggle("hidden");
     }
 
     function addMessage(text, type) {
@@ -362,27 +361,33 @@
       chat.scrollTop = chat.scrollHeight;
     }
 
-    function aiReply(text) {
-      if (text.includes("hello") || text.includes("hi")) return "Hello! Where would you like to travel?";
-      if (text.includes("london")) return "Flights to London cost around AED 2850 and take about 7h 30m.";
-      if (text.includes("paris")) return "Flights to Paris cost around AED 3150 and take about 7h 10m.";
-      if (text.includes("bangkok")) return "Flights to Bangkok cost around AED 2450 and take about 6h 45m.";
-      if (text.includes("dubai")) return "Dubai flights are very short, around 1 hour, and cost about AED 500.";
-      if (text.includes("new york") || text.includes("newyork")) return "Flights to New York cost around AED 4200 and take about 14 hours.";
-      if (text.includes("istanbul")) return "Flights to Istanbul cost around AED 1800 and take about 5 hours.";
-      if (text.includes("price") || text.includes("cost")) return "Prices range from AED 500 to AED 4200 depending on destination.";
-      if (text.includes("book")) return "You can click the Book Now button on any destination card.";
-      return "I can help with flight prices, travel time, booking, or destination info.";
-    }
-
-    function sendMessage() {
+    async function sendMessage() {
       const input = document.getElementById("input");
-      const text = input.value.trim().toLowerCase();
+      const text = input.value.trim();
       if (!text) return;
 
       addMessage(text, "user");
-      addMessage(aiReply(text), "ai");
       input.value = "";
+      addMessage("Thinking...", "ai");
+
+      setTimeout(() => {
+        const chat = document.getElementById("chat");
+        chat.lastChild.remove();
+
+        let reply = "I can help with flights, prices, destinations, and booking.";
+
+        const lower = text.toLowerCase();
+        if (lower.includes("hello") || lower.includes("hi")) reply = "Hello! Where would you like to travel?";
+        else if (lower.includes("london")) reply = "Flights to London cost around AED 2850 and take about 7h 30m.";
+        else if (lower.includes("paris")) reply = "Flights to Paris cost around AED 3150 and take about 7h 10m.";
+        else if (lower.includes("bangkok")) reply = "Flights to Bangkok cost around AED 2450 and take about 6h 45m.";
+        else if (lower.includes("dubai")) reply = "Dubai flights are short, around 1 hour, and cost about AED 500.";
+        else if (lower.includes("new york") || lower.includes("newyork")) reply = "Flights to New York cost around AED 4200 and take about 14 hours.";
+        else if (lower.includes("istanbul")) reply = "Flights to Istanbul cost around AED 1800 and take about 5 hours.";
+        else if (lower.includes("price") || lower.includes("cost")) reply = "Prices range from AED 500 to AED 4200 depending on destination.";
+
+        addMessage(reply, "ai");
+      }, 800);
     }
 
     function enter(e) {
