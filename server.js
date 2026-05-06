@@ -5,7 +5,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/api/chat", async (req, res) => {
+app.post("/api/chat", (req, res) => {
   const message = (req.body.message || "").toLowerCase();
 
   let reply = "I can help with flights, prices, destinations, and booking.";
