@@ -22,20 +22,18 @@ header{
   font-size:12px;
   border-radius:12px;
   border:none;
-  cursor:pointer;
 }
 
-/* ===== BANNER ===== */
-.banner{
-  height:55vh;
+/* HERO (replaces banner) */
+.hero{
+  height:50vh;
+  background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+  url('https://source.unsplash.com/1600x900/?airplane') center/cover;
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
   color:white;
-  background-size:cover;
-  background-position:center;
-  transition: background-image 1s ease-in-out;
+  text-align:center;
 }
 
 /* SEARCH */
@@ -77,8 +75,6 @@ input,button{
   object-fit:cover;
 }
 
-.price{ color:#d81e05; font-weight:bold; }
-
 .book-btn{
   background:#d81e05;
   color:white;
@@ -105,21 +101,14 @@ input,button{
   background:white;
   padding:25px;
   border-radius:12px;
-  max-width:400px;
   text-align:center;
 }
 
 /* TEAM */
 .team{
   text-align:center;
-  padding:50px 20px;
+  padding:50px;
   background:#f8f9fa;
-}
-
-.team img{
-  max-width:650px;
-  border-radius:15px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.15);
 }
 
 /* CHAT */
@@ -130,8 +119,8 @@ input,button{
   width:260px;
   background:white;
   border-radius:10px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.3);
   overflow:hidden;
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
 }
 
 .chat-body{
@@ -154,11 +143,11 @@ input,button{
   <button class="lang-btn">🌐 AR / EN</button>
 </header>
 
-<!-- ✅ WORKING BANNER -->
-<div class="banner" id="banner">
+<!-- HERO -->
+<div class="hero">
   <div>
     <h1>Travel Smarter with AI</h1>
-    <p>Book Flights Instantly</p>
+    <p>Plan your trip in seconds</p>
   </div>
 </div>
 
@@ -217,13 +206,8 @@ input,button{
 <!-- TEAM -->
 <section class="team">
   <h2>Our Team</h2>
-  <p>Grade 11 AI Project Group</p>
-
-  <img src="ourteam.png">
-
-  <p style="margin-top:15px;font-weight:bold;">
-    Mahra Alzaabi, Sarah Hussein, Sarah Alnuaimi, Fatema Mohamed, Shamma Hamad
-  </p>
+  <p>Mahra Alzaabi, Sarah Hussein, Sarah Alnuaimi, Fatema Mohamed, Shamma Hamad</p>
+  <img src="ourteam.png" style="max-width:600px;border-radius:15px;margin-top:20px;">
 </section>
 
 <!-- MODAL -->
@@ -241,42 +225,21 @@ input,button{
     AI Assistant
   </div>
   <div class="chat-body" id="chat"></div>
-  <input id="input" placeholder="Ask AI..." style="width:100%;padding:10px;border:none" onkeypress="enter(event)">
+  <input id="input" placeholder="Ask me anything..." onkeypress="enter(event)">
 </div>
 
 <script>
 
-/* ===== BANNER SLIDER ===== */
-let banners = [
-  "https://source.unsplash.com/1600x900/?airplane",
-  "https://source.unsplash.com/1600x900/?dubai,skyline",
-  "https://source.unsplash.com/1600x900/?airport",
-  "https://source.unsplash.com/1600x900/?travel"
-];
-
-let i = 0;
-
-function changeBanner(){
-  document.getElementById("banner").style.backgroundImage =
-    `url('${banners[i]}')`;
-
-  i = (i + 1) % banners.length;
-}
-
-changeBanner();
-setInterval(changeBanner, 4000);
-
-/* ===== MODAL ===== */
+/* MODAL */
 function showInfo(city){
   let data={
-    london:"7h 30m • AED 2850",
-    paris:"7h 10m • AED 3150",
-    bangkok:"6h 45m • AED 2450",
-    dubai:"1h • AED 500",
-    newyork:"14h • AED 4200",
-    istanbul:"5h • AED 1800"
+    london:"Flight ~7h 30m | AED 2850",
+    paris:"Flight ~7h 10m | AED 3150",
+    bangkok:"Flight ~6h 45m | AED 2450",
+    dubai:"Flight ~1h | AED 500",
+    newyork:"Flight ~14h | AED 4200",
+    istanbul:"Flight ~5h | AED 1800"
   };
-
   document.getElementById("title").innerText=city.toUpperCase();
   document.getElementById("info").innerText=data[city];
   document.getElementById("modal").style.display="flex";
@@ -286,26 +249,32 @@ function closeModal(){
   document.getElementById("modal").style.display="none";
 }
 
-/* ===== BOOK ===== */
+/* BOOK */
 function book(city){
-  alert("🎟 Booking confirmed for " + city + " (Demo)");
+  alert("🎟 Booking for " + city + " (Demo)");
 }
 
-/* ===== AI CHAT ===== */
+/* SMART AI CHAT */
 function enter(e){
   if(e.key==="Enter"){
-    let text=document.getElementById("input").value;
+    let text=document.getElementById("input").value.toLowerCase();
     let chat=document.getElementById("chat");
 
     chat.innerHTML+=`<div class='msg user'>${text}</div>`;
 
-    let reply="I can help you find flights ✈️";
+    let reply="Tell me where you want to go ✈️";
 
-    if(text.toLowerCase().includes("dubai"))
-      reply="Dubai: AED 500 | 1h flight";
+    if(text.includes("london"))
+      reply="Flights to London cost around AED 2850 and take 7h 30m.";
 
-    else if(text.toLowerCase().includes("london"))
-      reply="London: AED 2850 | 7h 30m";
+    else if(text.includes("dubai"))
+      reply="Dubai flights are very short (1h) and cost around AED 500.";
+
+    else if(text.includes("price"))
+      reply="Prices range from AED 500 to AED 4200 depending on destination.";
+
+    else if(text.includes("hello"))
+      reply="Hello! Where would you like to travel?";
 
     chat.innerHTML+=`<div class='msg ai'>${reply}</div>`;
     document.getElementById("input").value="";
