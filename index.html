@@ -32,12 +32,54 @@
     }
 
     section { padding: 50px 20px; }
+    .destinations { background: #f8f9fa; text-align: center; }
 
-    /* Floating Chat */
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+    .card {
+      width: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background: white;
+      cursor: pointer;
+    }
+    .card:hover { transform: scale(1.05); }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .price { color: #d81e05; font-weight: bold; }
+
+    /* Floating Chat Icon */
+    .chat-icon {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 65px;
+      height: 65px;
+      background: #002d62;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    /* Chat Window */
     .chat-container {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 100px;
+      right: 25px;
       width: 360px;
       background: white;
       border-radius: 20px;
@@ -73,7 +115,6 @@
       padding: 12px;
       background: white;
       display: flex;
-      gap: 8px;
     }
     .chat-input input {
       flex: 1;
@@ -82,31 +123,13 @@
       border-radius: 25px;
     }
     .chat-input button {
+      margin-left: 8px;
       padding: 0 20px;
       background: #002d62;
       color: white;
       border: none;
       border-radius: 25px;
       cursor: pointer;
-    }
-
-    /* Floating Icon */
-    .chat-icon {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background: #002d62;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      cursor: pointer;
-      z-index: 999;
     }
   </style>
 </head>
@@ -117,7 +140,7 @@
     <button onclick="switchLanguage()" style="padding:8px 16px; border-radius:20px;">🇦🇪 AR / EN</button>
   </header>
 
-  <!-- Hero + other sections (same as before) -->
+  <!-- Hero -->
   <section class="hero">
     <div>
       <h1>Travel Smarter with AI</h1>
@@ -125,8 +148,64 @@
     </div>
   </section>
 
-  <!-- Your destinations and team sections here... -->
-  <!-- (Keep your existing destinations and team photo) -->
+  <!-- Search Bar -->
+  <div style="background:white; max-width:1100px; margin:-60px auto 40px; padding:20px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.2); width:90%;">
+    <input type="text" placeholder="Where are you flying from? (e.g. Abu Dhabi AUH)" style="width:100%; padding:14px; margin-bottom:12px; border-radius:8px;">
+    <button onclick="alert('🔍 Searching best flights... (Demo)')" style="width:100%; padding:14px; background:#d81e05; color:white; border:none; border-radius:8px; font-size:17px;">
+      Search Flights
+    </button>
+  </div>
+
+  <!-- About Project -->
+  <section style="background:#f8f9fa; text-align:center;">
+    <h2>About Our Project</h2>
+    <p style="max-width:800px; margin:20px auto; font-size:18px;">
+      SkyGuide AI is an AI-Powered Airline Booking & Travel Assistant.<br>
+      It helps people plan their trips easily by chatting in natural language.
+    </p>
+  </section>
+
+  <!-- Featured Destinations -->
+  <section class="destinations">
+    <h2>Featured Destinations from Abu Dhabi</h2>
+    <div class="cards">
+
+      <div class="card" onclick="showInfo('london')">
+        <img src="lon1.avif" alt="London">
+        <div style="padding:15px;">
+          <h3>London, UK</h3>
+          <p class="price">from AED 2,850</p>
+        </div>
+      </div>
+
+      <div class="card" onclick="showInfo('paris')">
+        <img src="paris1.jpg" alt="Paris">
+        <div style="padding:15px;">
+          <h3>Paris, France</h3>
+          <p class="price">from AED 3,150</p>
+        </div>
+      </div>
+
+      <div class="card" onclick="showInfo('bangkok')">
+        <img src="thai.jpg" alt="Bangkok">
+        <div style="padding:15px;">
+          <h3>Bangkok, Thailand</h3>
+          <p class="price">from AED 2,450</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Our Team -->
+  <section style="text-align:center; padding:50px 20px; background:#f8f9fa;">
+    <h2>Our Team</h2>
+    <p style="margin:15px 0 25px;">Grade 11 AI Project Team</p>
+    <img src="ourteam.png" alt="Our Team" style="max-width: 650px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);">
+    <p style="margin-top:20px; font-weight:bold;">
+      Mahra Alzaabi, Sarah Hussein, Sarah Alnuaimi, Fatema Mohamed, Shamma Hamad
+    </p>
+  </section>
 
   <!-- Floating Chat Icon -->
   <div class="chat-icon" id="chatIcon" onclick="toggleChat()">
@@ -137,16 +216,20 @@
   <div class="chat-container" id="chatContainer">
     <div class="chat-header">
       <span>SkyGuide AI Assistant</span>
-      <button onclick="toggleChat()" style="background:none; border:none; color:white; font-size:24px;">×</button>
+      <button onclick="toggleChat()" style="background:none;border:none;color:white;font-size:24px;">×</button>
     </div>
     <div class="chat-body" id="chatBody">
-      <div class="message ai">Hello! How can I help you plan your trip today?</div>
+      <div class="message ai">Hello! How can I help you with your trip today?</div>
     </div>
     <div class="chat-input">
       <input type="text" id="userInput" placeholder="Ask anything..." onkeypress="handleKey(event)">
       <button onclick="sendMessage()">Send</button>
     </div>
   </div>
+
+  <footer>
+    <p><strong>SkyGuide AI</strong> — Grade 11 AI Project | Abu Dhabi, UAE</p>
+  </footer>
 
   <script>
     function toggleChat() {
@@ -171,7 +254,7 @@
       chatBody.innerHTML += `<div class="message user">${text}</div>`;
 
       setTimeout(() => {
-        let reply = "I can help you with flight suggestions. What is your destination?";
+        let reply = "I can help you find flights. Tell me your destination!";
         if (text.toLowerCase().includes("london")) reply = "London: AED 2,850+, 7h 30m direct.";
         else if (text.toLowerCase().includes("paris")) reply = "Paris: AED 3,150+, 7h 10m direct.";
         else if (text.toLowerCase().includes("bangkok")) reply = "Bangkok: AED 2,450+, 6h 45m direct.";
@@ -187,8 +270,12 @@
       if (e.key === "Enter") sendMessage();
     }
 
+    function showInfo(city) {
+      alert("More details about " + city + " coming soon.");
+    }
+
     function switchLanguage() {
-      alert("Language switch (AR/EN) is ready");
+      alert("AR / EN Language Switch Ready");
     }
   </script>
 </body>
