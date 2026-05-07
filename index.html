@@ -37,11 +37,11 @@
     .cards {
       display: flex;
       justify-content: center;
-      gap: 25px;
+      gap: 20px;
       flex-wrap: wrap;
     }
     .card {
-      width: 320px;
+      width: 280px;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -49,7 +49,7 @@
       cursor: pointer;
     }
     .card:hover { transform: scale(1.05); }
-    .card img { width: 100%; height: 200px; object-fit: cover; }
+    .card img { width: 100%; height: 190px; object-fit: cover; }
 
     /* Floating Icon */
     .chat-icon {
@@ -70,7 +70,6 @@
       z-index: 999;
     }
 
-    /* Chat Window */
     .chat-container {
       position: fixed;
       bottom: 100px;
@@ -148,6 +147,9 @@
       <div class="card" onclick="showInfo('london')"><img src="lon1.avif" alt="London"><div style="padding:15px;"><h3>London</h3><p class="price">from AED 2,850</p></div></div>
       <div class="card" onclick="showInfo('paris')"><img src="paris1.jpg" alt="Paris"><div style="padding:15px;"><h3>Paris</h3><p class="price">from AED 3,150</p></div></div>
       <div class="card" onclick="showInfo('bangkok')"><img src="thai.jpg" alt="Bangkok"><div style="padding:15px;"><h3>Bangkok</h3><p class="price">from AED 2,450</p></div></div>
+      <div class="card" onclick="showInfo('dubai')"><img src="dub1.jpg" alt="Dubai"><div style="padding:15px;"><h3>Dubai</h3><p class="price">from AED 500</p></div></div>
+      <div class="card" onclick="showInfo('newyork')"><img src="new1.jpg" alt="New York"><div style="padding:15px;"><h3>New York</h3><p class="price">from AED 4,200</p></div></div>
+      <div class="card" onclick="showInfo('istanbul')"><img src="ist1.jpg" alt="Istanbul"><div style="padding:15px;"><h3>Istanbul</h3><p class="price">from AED 1,800</p></div></div>
     </div>
   </section>
 
@@ -202,12 +204,13 @@
 
       setTimeout(() => {
         let reply = "I'm here to help! Where would you like to travel?";
-
         const lower = text.toLowerCase();
         if (lower.includes("london")) reply = "London flights from Abu Dhabi start from AED 2,850 (7h 30m direct).";
         else if (lower.includes("paris")) reply = "Paris flights start from AED 3,150 (7h 10m direct).";
         else if (lower.includes("bangkok") || lower.includes("thailand")) reply = "Bangkok flights start from AED 2,450 (6h 45m direct).";
-        else if (lower.includes("price") || lower.includes("cheap")) reply = "Tell me your destination for the best price estimate.";
+        else if (lower.includes("dubai")) reply = "Dubai is very close! Flights from AUH start from AED 500.";
+        else if (lower.includes("new york") || lower.includes("newyork")) reply = "New York flights start from AED 4,200 (around 14 hours).";
+        else if (lower.includes("istanbul")) reply = "Istanbul flights start from AED 1,800 (5 hours direct).";
 
         chatBody.innerHTML += `<div class="message ai">${reply}</div>`;
         chatBody.scrollTop = chatBody.scrollHeight;
