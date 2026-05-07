@@ -13,26 +13,27 @@ const openai = new OpenAI({
 
 app.post("/api/chat", async (req, res) => {
   try {
-    const message = req.body.message || "";
+    const { message } = req.body;
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
-          content: "You are SkyGuide AI, a helpful travel assistant. Answer clearly and briefly."
+          content: "You are SkyGuide AI, a helpful and friendly travel assistant from Abu Dhabi. Help users with flight information, prices, destinations, and travel tips. Be clear and concise."
         },
         { role: "user", content: message }
-      ]
+      ],
+      max_tokens: 300
     });
 
     res.json({ reply: completion.choices[0].message.content });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ reply: "Sorry, I couldn't connect to the AI service." });
+    res.json({ reply: "Sorry, I'm having trouble connecting right now. Please try again." });
   }
 });
 
 app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+  console.log("✅ SkyGuide AI Server running on http://localhost:3000");
 });
