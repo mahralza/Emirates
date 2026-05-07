@@ -51,6 +51,7 @@
     .card:hover { transform: scale(1.05); }
     .card img { width: 100%; height: 200px; object-fit: cover; }
 
+    /* Floating Chat Icon */
     .chat-icon {
       position: fixed;
       bottom: 25px;
@@ -69,6 +70,7 @@
       z-index: 999;
     }
 
+    /* Chat Window */
     .chat-container {
       position: fixed;
       bottom: 100px;
@@ -136,27 +138,37 @@
   <section class="hero">
     <div>
       <h1>Travel Smarter with AI</h1>
-      <p>Your Intelligent Airline Booking & Travel Assistant</p>
+      <p>Your Intelligent Travel Assistant from Abu Dhabi</p>
     </div>
   </section>
 
   <section style="background:#f8f9fa; text-align:center; padding:40px 20px;">
     <h2>About Our Project</h2>
     <p style="max-width:800px; margin:20px auto; font-size:18px;">
-      <strong>SkyGuide AI</strong> is an AI-Powered Airline Booking & Travel Assistant.<br>
-      It helps people plan and book flights easily by chatting in natural language.
+      SkyGuide AI is an AI-Powered Airline Booking & Travel Assistant.<br>
+      It helps people plan their trips easily by chatting in natural language.
     </p>
   </section>
 
   <section class="destinations">
     <h2>Featured Destinations from Abu Dhabi</h2>
     <div class="cards">
-      <div class="card" onclick="showInfo('london')"><img src="lon1.avif" alt="London"><div style="padding:15px;"><h3>London</h3><p class="price">from AED 2,850</p></div></div>
-      <div class="card" onclick="showInfo('paris')"><img src="paris1.jpg" alt="Paris"><div style="padding:15px;"><h3>Paris</h3><p class="price">from AED 3,150</p></div></div>
-      <div class="card" onclick="showInfo('bangkok')"><img src="thai.jpg" alt="Bangkok"><div style="padding:15px;"><h3>Bangkok</h3><p class="price">from AED 2,450</p></div></div>
+      <div class="card" onclick="showInfo('london')">
+        <img src="lon1.avif" alt="London">
+        <div style="padding:15px;"><h3>London, UK</h3><p class="price">from AED 2,850</p></div>
+      </div>
+      <div class="card" onclick="showInfo('paris')">
+        <img src="paris1.jpg" alt="Paris">
+        <div style="padding:15px;"><h3>Paris, France</h3><p class="price">from AED 3,150</p></div>
+      </div>
+      <div class="card" onclick="showInfo('bangkok')">
+        <img src="thai.jpg" alt="Bangkok">
+        <div style="padding:15px;"><h3>Bangkok, Thailand</h3><p class="price">from AED 2,450</p></div>
+      </div>
     </div>
   </section>
 
+  <!-- Our Team -->
   <section style="text-align:center; padding:50px 20px; background:#f8f9fa;">
     <h2>Our Team</h2>
     <p style="margin:15px 0 25px;">Grade 11 AI Project Team</p>
@@ -212,7 +224,7 @@
       setTimeout(() => {
         let reply = "I'm here to help! Where would you like to travel?";
         const lower = text.toLowerCase();
-        if (lower.includes("london")) reply = "London flights from Abu Dhabi start from AED 2,850 (7h 30m direct).";
+        if (lower.includes("london")) reply = "London flights start from AED 2,850 (7h 30m direct).";
         else if (lower.includes("paris")) reply = "Paris flights start from AED 3,150 (7h 10m direct).";
         else if (lower.includes("bangkok") || lower.includes("thailand")) reply = "Bangkok flights start from AED 2,450 (6h 45m direct).";
 
