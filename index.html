@@ -151,11 +151,13 @@
     </div>
   </section>
 
-  <!-- Team -->
   <section style="text-align:center; padding:50px 20px; background:#f8f9fa;">
     <h2>Our Team</h2>
     <p style="margin:15px 0 25px;">Grade 11 AI Project Team</p>
     <img src="ourteam.png" alt="Our Team" style="max-width:650px; border-radius:15px;">
+    <p style="margin-top:20px; font-weight:bold;">
+      Mahra Alzaabi, Sarah Hussein, Sarah Alnuaimi, Fatema Mohamed, Shamma Hamad
+    </p>
   </section>
 
   <!-- Floating Chat Icon -->
@@ -193,38 +195,28 @@
       }
     }
 
-    async function sendMessage() {
+    function sendMessage() {
       const input = document.getElementById("userInput");
       const text = input.value.trim();
       if (!text) return;
 
       const chatBody = document.getElementById("chatBody");
       chatBody.innerHTML += `<div class="message user">${text}</div>`;
+
+      setTimeout(() => {
+        let reply = "I'm here to help! Where would you like to travel?";
+
+        const lower = text.toLowerCase();
+        if (lower.includes("london")) reply = "London flights from Abu Dhabi start from AED 2,850 (7h 30m direct).";
+        else if (lower.includes("paris")) reply = "Paris flights start from AED 3,150 (7h 10m direct).";
+        else if (lower.includes("bangkok") || lower.includes("thailand")) reply = "Bangkok flights start from AED 2,450 (6h 45m direct).";
+        else if (lower.includes("price") || lower.includes("cheap")) reply = "Tell me your destination for the best price estimate.";
+
+        chatBody.innerHTML += `<div class="message ai">${reply}</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 600);
+
       input.value = "";
-
-      // Show typing indicator
-      const typing = document.createElement('div');
-      typing.className = "message ai";
-      typing.textContent = "Thinking...";
-      chatBody.appendChild(typing);
-      chatBody.scrollTop = chatBody.scrollHeight;
-
-      try {
-        const res = await fetch("http://localhost:3000/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text })
-        });
-
-        const data = await res.json();
-        typing.remove();
-        chatBody.innerHTML += `<div class="message ai">${data.reply}</div>`;
-      } catch (err) {
-        typing.remove();
-        chatBody.innerHTML += `<div class="message ai">Sorry, I can't connect to the AI right now. Make sure the server is running.</div>`;
-      }
-
-      chatBody.scrollTop = chatBody.scrollHeight;
     }
 
     function handleKey(e) {
