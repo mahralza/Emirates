@@ -54,9 +54,8 @@
       height: 200px;
       object-fit: cover;
     }
-    .price { color: #d81e05; font-weight: bold; }
 
-    /* Floating Chat Icon */
+    /* Floating Icon */
     .chat-icon {
       position: fixed;
       bottom: 25px;
@@ -80,9 +79,9 @@
       position: fixed;
       bottom: 100px;
       right: 25px;
-      width: 360px;
+      width: 380px;
       background: white;
-      border-radius: 20px;
+      border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       overflow: hidden;
       z-index: 1000;
@@ -91,16 +90,16 @@
     .chat-header {
       background: #002d62;
       color: white;
-      padding: 12px;
+      padding: 12px 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .chat-body {
-      height: 380px;
+      height: 420px;
       overflow-y: auto;
       padding: 15px;
-      background: #f8f9fa;
+      background: #f0f2f5;
     }
     .message {
       margin: 10px 0;
@@ -108,23 +107,23 @@
       border-radius: 18px;
       max-width: 85%;
     }
-    .ai { background: #e9ecef; }
-    .user { background: #002d62; color: white; margin-left: auto; text-align: right; }
+    .ai { background: #e5e5ea; color: black; }
+    .user { background: #007aff; color: white; margin-left: auto; text-align: right; }
 
     .chat-input {
       padding: 12px;
       background: white;
       display: flex;
+      gap: 8px;
     }
     .chat-input input {
       flex: 1;
-      padding: 12px;
+      padding: 12px 16px;
       border: 1px solid #ccc;
       border-radius: 25px;
     }
     .chat-input button {
-      margin-left: 8px;
-      padding: 0 20px;
+      padding: 0 24px;
       background: #002d62;
       color: white;
       border: none;
@@ -140,7 +139,6 @@
     <button onclick="switchLanguage()" style="padding:8px 16px; border-radius:20px;">🇦🇪 AR / EN</button>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div>
       <h1>Travel Smarter with AI</h1>
@@ -148,69 +146,25 @@
     </div>
   </section>
 
-  <!-- Search Bar -->
-  <div style="background:white; max-width:1100px; margin:-60px auto 40px; padding:20px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.2); width:90%;">
-    <input type="text" placeholder="Where are you flying from? (e.g. Abu Dhabi AUH)" style="width:100%; padding:14px; margin-bottom:12px; border-radius:8px;">
-    <button onclick="alert('🔍 Searching best flights... (Demo)')" style="width:100%; padding:14px; background:#d81e05; color:white; border:none; border-radius:8px; font-size:17px;">
-      Search Flights
-    </button>
-  </div>
-
-  <!-- About Project -->
-  <section style="background:#f8f9fa; text-align:center;">
-    <h2>About Our Project</h2>
-    <p style="max-width:800px; margin:20px auto; font-size:18px;">
-      SkyGuide AI is an AI-Powered Airline Booking & Travel Assistant.<br>
-      It helps people plan their trips easily by chatting in natural language.
-    </p>
-  </section>
-
-  <!-- Featured Destinations -->
+  <!-- Destinations and Team sections (same as before) -->
   <section class="destinations">
     <h2>Featured Destinations from Abu Dhabi</h2>
     <div class="cards">
-
-      <div class="card" onclick="showInfo('london')">
-        <img src="lon1.avif" alt="London">
-        <div style="padding:15px;">
-          <h3>London, UK</h3>
-          <p class="price">from AED 2,850</p>
-        </div>
-      </div>
-
-      <div class="card" onclick="showInfo('paris')">
-        <img src="paris1.jpg" alt="Paris">
-        <div style="padding:15px;">
-          <h3>Paris, France</h3>
-          <p class="price">from AED 3,150</p>
-        </div>
-      </div>
-
-      <div class="card" onclick="showInfo('bangkok')">
-        <img src="thai.jpg" alt="Bangkok">
-        <div style="padding:15px;">
-          <h3>Bangkok, Thailand</h3>
-          <p class="price">from AED 2,450</p>
-        </div>
-      </div>
-
+      <div class="card" onclick="showInfo('london')"><img src="lon1.avif" alt="London"><div style="padding:15px;"><h3>London</h3><p class="price">from AED 2,850</p></div></div>
+      <div class="card" onclick="showInfo('paris')"><img src="paris1.jpg" alt="Paris"><div style="padding:15px;"><h3>Paris</h3><p class="price">from AED 3,150</p></div></div>
+      <div class="card" onclick="showInfo('bangkok')"><img src="thai.jpg" alt="Bangkok"><div style="padding:15px;"><h3>Bangkok</h3><p class="price">from AED 2,450</p></div></div>
     </div>
   </section>
 
-  <!-- Our Team -->
+  <!-- Team -->
   <section style="text-align:center; padding:50px 20px; background:#f8f9fa;">
     <h2>Our Team</h2>
     <p style="margin:15px 0 25px;">Grade 11 AI Project Team</p>
-    <img src="ourteam.png" alt="Our Team" style="max-width: 650px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);">
-    <p style="margin-top:20px; font-weight:bold;">
-      Mahra Alzaabi, Sarah Hussein, Sarah Alnuaimi, Fatema Mohamed, Shamma Hamad
-    </p>
+    <img src="ourteam.png" alt="Our Team" style="max-width:650px; border-radius:15px;">
   </section>
 
   <!-- Floating Chat Icon -->
-  <div class="chat-icon" id="chatIcon" onclick="toggleChat()">
-    💬
-  </div>
+  <div class="chat-icon" id="chatIcon" onclick="toggleChat()">💬</div>
 
   <!-- Chat Window -->
   <div class="chat-container" id="chatContainer">
@@ -235,7 +189,6 @@
     function toggleChat() {
       const chat = document.getElementById('chatContainer');
       const icon = document.getElementById('chatIcon');
-      
       if (chat.style.display === "block") {
         chat.style.display = "none";
         icon.style.display = "flex";
@@ -254,10 +207,14 @@
       chatBody.innerHTML += `<div class="message user">${text}</div>`;
 
       setTimeout(() => {
-        let reply = "I can help you find flights. Tell me your destination!";
-        if (text.toLowerCase().includes("london")) reply = "London: AED 2,850+, 7h 30m direct.";
-        else if (text.toLowerCase().includes("paris")) reply = "Paris: AED 3,150+, 7h 10m direct.";
-        else if (text.toLowerCase().includes("bangkok")) reply = "Bangkok: AED 2,450+, 6h 45m direct.";
+        let reply = "I'm here to help! Tell me where you want to go.";
+
+        const lower = text.toLowerCase();
+        if (lower.includes("london")) reply = "London flights from Abu Dhabi start from around AED 2,850 (7h 30m direct with Etihad).";
+        else if (lower.includes("paris")) reply = "Paris flights start from AED 3,150 (7h 10m direct).";
+        else if (lower.includes("bangkok") || lower.includes("thailand")) reply = "Bangkok is popular! Flights start from AED 2,450 (6h 45m direct).";
+        else if (lower.includes("price") || lower.includes("cost") || lower.includes("how much")) reply = "Prices vary. Tell me your destination for the best current deals.";
+        else if (lower.includes("hello") || lower.includes("hi")) reply = "Hello! How can I assist you today?";
 
         chatBody.innerHTML += `<div class="message ai">${reply}</div>`;
         chatBody.scrollTop = chatBody.scrollHeight;
