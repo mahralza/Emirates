@@ -51,6 +51,26 @@
     .card:hover { transform: scale(1.05); }
     .card img { width: 100%; height: 190px; object-fit: cover; }
 
+    /* Help Section */
+    .help-section {
+      background: #f8f9fa;
+      text-align: center;
+      padding: 50px 20px;
+    }
+    .help-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .help-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      width: 280px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
     /* Floating Chat Icon */
     .chat-icon {
       position: fixed;
@@ -156,12 +176,26 @@
       <div class="card" onclick="showInfo('london')"><img src="lon1.avif" alt="London"><div style="padding:15px;"><h3>London</h3><p class="price">from AED 2,850</p></div></div>
       <div class="card" onclick="showInfo('paris')"><img src="paris1.jpg" alt="Paris"><div style="padding:15px;"><h3>Paris</h3><p class="price">from AED 3,150</p></div></div>
       <div class="card" onclick="showInfo('bangkok')"><img src="thai.jpg" alt="Bangkok"><div style="padding:15px;"><h3>Bangkok</h3><p class="price">from AED 2,450</p></div></div>
-      <div class="card" onclick="showInfo('dubai')"><img src="dub1.jpg" alt="Dubai"><div style="padding:15px;"><h3>Dubai</h3><p class="price">from AED 500</p></div></div>
-      <div class="card" onclick="showInfo('newyork')"><img src="new1.jpg" alt="New York"><div style="padding:15px;"><h3>New York</h3><p class="price">from AED 4,200</p></div></div>
-      <div class="card" onclick="showInfo('istanbul')"><img src="ist1.jpg" alt="Istanbul"><div style="padding:15px;"><h3>Istanbul</h3><p class="price">from AED 1,800</p></div></div>
     </div>
   </section>
 
+  <!-- Help / Call Center -->
+  <section class="help-section" style="background:#f8f9fa; text-align:center; padding:50px 20px;">
+    <h2>Need Help?</h2>
+    <p style="margin:15px 0 30px;">Our team and AI assistant are here to support you</p>
+    <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
+      <div style="background:white; padding:25px; border-radius:12px; width:280px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+        <h3>💬 AI Assistant</h3>
+        <p>Click the chat icon at the bottom right to ask anything</p>
+      </div>
+      <div style="background:white; padding:25px; border-radius:12px; width:280px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+        <h3>📞 Call Center</h3>
+        <p>Hotline: +971 50 123 4567<br>(Demo Number)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Team -->
   <section style="text-align:center; padding:50px 20px; background:#f8f9fa;">
     <h2>Our Team</h2>
     <p style="margin:15px 0 25px;">Grade 11 AI Project Team</p>
