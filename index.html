@@ -50,82 +50,6 @@
     }
     .card:hover { transform: scale(1.05); }
     .card img { width: 100%; height: 190px; object-fit: cover; }
-
-    /* Floating Chat Icon */
-    .chat-icon {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      width: 65px;
-      height: 65px;
-      background: #002d62;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-      cursor: pointer;
-      z-index: 999;
-    }
-
-    /* Chat Window */
-    .chat-container {
-      position: fixed;
-      bottom: 100px;
-      right: 25px;
-      width: 380px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      overflow: hidden;
-      z-index: 1000;
-      display: none;
-    }
-    .chat-header {
-      background: #002d62;
-      color: white;
-      padding: 12px 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .chat-body {
-      height: 420px;
-      overflow-y: auto;
-      padding: 15px;
-      background: #f0f2f5;
-    }
-    .message {
-      margin: 10px 0;
-      padding: 12px 16px;
-      border-radius: 18px;
-      max-width: 85%;
-    }
-    .ai { background: #e5e5ea; color: black; }
-    .user { background: #007aff; color: white; margin-left: auto; text-align: right; }
-
-    .chat-input {
-      padding: 12px;
-      background: white;
-      display: flex;
-      gap: 8px;
-    }
-    .chat-input input {
-      flex: 1;
-      padding: 12px 16px;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-    }
-    .chat-input button {
-      padding: 0 24px;
-      background: #002d62;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
@@ -153,13 +77,34 @@
   <section class="destinations">
     <h2>Featured Destinations from Abu Dhabi</h2>
     <div class="cards">
-      <div class="card" onclick="showInfo('london')"><img src="lon2.webp" alt="London"><div style="padding:15px;"><h3>London</h3><p class="price">from AED 2,850</p></div></div>
-      <div class="card" onclick="showInfo('paris')"><img src="par1.jpg" alt="Paris"><div style="padding:15px;"><h3>Paris</h3><p class="price">from AED 3,150</p></div></div>
-      <div class="card" onclick="showInfo('bangkok')"><img src="thai.jpg" alt="Bangkok"><div style="padding:15px;"><h3>Bangkok</h3><p class="price">from AED 2,450</p></div></div>
-      <div class="card" onclick="showInfo('italy')"><img src="dum1.webp" alt="Italy"><div style="padding:15px;"><h3>Italy</h3><p class="price">from AED 3,200</p></div></div>
-      <div class="card" onclick="showInfo('dubai')"><img src="dub1.jpg" alt="Dubai"><div style="padding:15px;"><h3>Dubai</h3><p class="price">from AED 500</p></div></div>
-      <div class="card" onclick="showInfo('newyork')"><img src="new1.jpg" alt="New York"><div style="padding:15px;"><h3>New York</h3><p class="price">from AED 4,200</p></div></div>
-      <div class="card" onclick="showInfo('istanbul')"><img src="ist1.jpg" alt="Istanbul"><div style="padding:15px;"><h3>Istanbul</h3><p class="price">from AED 1,800</p></div></div>
+      <div class="card" onclick="showInfo('london')">
+        <img src="lon2.webp" alt="London">
+        <div style="padding:15px;"><h3>London, UK</h3><p class="price">from AED 2,850</p></div>
+      </div>
+      <div class="card" onclick="showInfo('paris')">
+        <img src="par1.avif" alt="Paris">
+        <div style="padding:15px;"><h3>Paris, France</h3><p class="price">from AED 3,150</p></div>
+      </div>
+      <div class="card" onclick="showInfo('bangkok')">
+        <img src="thai.jpg" alt="Bangkok">
+        <div style="padding:15px;"><h3>Bangkok, Thailand</h3><p class="price">from AED 2,450</p></div>
+      </div>
+      <div class="card" onclick="showInfo('italy')">
+        <img src="dum1.webp" alt="Italy">
+        <div style="padding:15px;"><h3>Italy</h3><p class="price">from AED 3,200</p></div>
+      </div>
+      <div class="card" onclick="showInfo('dubai')">
+        <img src="dub1.jpg" alt="Dubai">
+        <div style="padding:15px;"><h3>Dubai, UAE</h3><p class="price">from AED 500</p></div>
+      </div>
+      <div class="card" onclick="showInfo('newyork')">
+        <img src="new1.jpg" alt="New York">
+        <div style="padding:15px;"><h3>New York, USA</h3><p class="price">from AED 4,200</p></div>
+      </div>
+      <div class="card" onclick="showInfo('istanbul')">
+        <img src="ist1.jpg" alt="Istanbul">
+        <div style="padding:15px;"><h3>Istanbul, Turkey</h3><p class="price">from AED 1,800</p></div>
+      </div>
     </div>
   </section>
 
